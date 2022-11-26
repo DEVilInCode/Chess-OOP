@@ -1,31 +1,9 @@
 #include <iostream>
 #include <Windows.h>
+#include "ConsoleColor.h"
+#include "Cell.h"
 #include "Board.h"
-#include "Pieces.h"
-
-Cell::Cell()
-{
-	this->piece = NULL;
-}
-
-Cell::~Cell(){
-
-}
-
-void Cell::SetPiece(BasePiece* piece)
-{
-	this->piece = piece;
-}
-
-BasePiece* Cell::GetPiece()
-{
-	return this->piece;
-}
-
-void Cell::Clear()
-{
-	this->piece = NULL;
-}
+#include "Pawn.h"
 
 Board::Board()
 {
@@ -45,23 +23,56 @@ Board::~Board()
 
 void Board::Draw()
 {
-	SetConsoleOutputCP(65001);
-	char q[] = "King: \xE2\x99\x94.\n";
-	printf(q);
+	ConsoleColor current;
 
-	std::cout << "1 2 3 4 5 6 7 8" << std::endl;
+	std::cout << " a  b  c  d  e  f  g  h " << std::endl;
+	for (size_t i = 0; i < 8; i++)
+	{
+		std::cout << " --";
+	}
+	std::cout << std::endl;
+	
 	for (int row = 0; row < 8; row++)
 	{
 		for (int column = 0; column < 8; column++)
 		{
-			BasePiece* current = board[row][column].GetPiece();
-			if (current == NULL)
-				std::cout << "  ";
+			if ((column + row) % 2 == 0)
+				current = DarkGray;
 			else
-				current->Draw();
+				current = Black;
+			BasePiece* currentPiece = board[row][column].GetPiece();
+			if (currentPiece == NULL)
+			{
+				std::cout << "|";
+				SetColor(White, current);
+				std::cout << "  ";
+			}
+			else
+			{
+				
+				std::cout << '|';
+				if (currentPiece->GetColor() == PieceColor::black)
+					SetColor(Red, current);
+				else
+					SetColor(White, current); 
+				std::cout << currentPiece->GetType();
+			}
+			SetColor(White, Black);
+				
 		}
-		std::cout << (char)('a' + row) << std::endl;
+
+		std::cout << '|' << (1 + row) << std::endl;
+		for (size_t i = 0; i < 8; i++)
+		{
+			std::cout << " --";
+		}
+		std::cout << std::endl;
 	}
+}
+
+bool Board::MovePiece(Position moveFrom, Position moveTo)
+{
+	return false;
 }
 
 void Board::InitializePieces()
@@ -70,10 +81,10 @@ void Board::InitializePieces()
 	for (int i = 0; i < 8; i++)
 	{
 		Position blackPawnPos = { i, 6 };
-		board[blackPawnPos.y][blackPawnPos.x].SetPiece(new Pawn(Color::black, blackPawnPos));
+		board[blackPawnPos.y][blackPawnPos.x].SetPiece(new Pawn(PieceColor::black, blackPawnPos));
 
 		Position whitePawnPos = { i, 1 };
-		board[whitePawnPos.y][whitePawnPos.x].SetPiece(new Pawn(Color::white, whitePawnPos));
+		board[whitePawnPos.y][whitePawnPos.x].SetPiece(new Pawn(PieceColor::white, whitePawnPos));
 	}
 
 	//Bishops

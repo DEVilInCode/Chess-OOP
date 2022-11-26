@@ -3,7 +3,7 @@
 
 class Board;
 
-enum class Color
+enum class PieceColor
 {
 	black,
 	white
@@ -18,13 +18,13 @@ public:
 	BasePiece();
 	~BasePiece();
 
-	Color GetColor();
-	void Draw();
+	PieceColor GetColor();
+	std::string GetType();
 	void SetPosition(Position pos);
-	virtual bool validMove();
+	virtual bool validMove(Position moveTo) = 0;
 
 protected:
 	std::string type;
-	Color color;
+	PieceColor color;
 	Position pos;
 };

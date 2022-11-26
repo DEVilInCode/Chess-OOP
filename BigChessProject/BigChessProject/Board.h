@@ -1,27 +1,16 @@
 #pragma once
 #include "BasePiece.h"
-
-
-class Cell
-{
-public:
-	Cell();
-	~Cell();
-	BasePiece* GetPiece();
-	void SetPiece(BasePiece* piece);
-	void Clear();
-protected:
-	BasePiece* piece;
-};
+#include "Cell.h"
 
 class Board
 {
 public:
 	Board();
-	~Board();
+	virtual ~Board();
 
 	void Draw();
 	bool MovePiece(Position moveFrom, Position moveTo);
+	bool GameOver();
 	BasePiece* GetPiece(Position piecePos);
 
 protected:

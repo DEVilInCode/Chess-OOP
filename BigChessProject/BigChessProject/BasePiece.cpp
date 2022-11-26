@@ -5,26 +5,20 @@ BasePiece::BasePiece() {
 	this->type = " ";
 }
 BasePiece::~BasePiece() {
-	std::cout << "Destroyed" << std::endl;
+	//std::cout << "Destroyed" << std::endl;
 }
 
-Color BasePiece::GetColor()
+PieceColor BasePiece::GetColor()
 {
 	return this->color;
 }
 
-void BasePiece::Draw()
+std::string BasePiece::GetType()
 {
-	std::cout << this->type;// << std::endl;	
+	return this->type;// << std::endl;	
 }
 
 void BasePiece::SetPosition(Position pos)
 {
 	this->pos = pos;
-}
-
-bool BasePiece::validMove()
-{
-	//virtual
-	return false;
 }

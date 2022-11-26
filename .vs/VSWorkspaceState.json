@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\BigChessProject",
+    "\\BigChessProject\\BigChessProject"
   ],
-  "SelectedNode": "\\C:\\Users\\DEVil\\Documents\\GitHub\\Curse4",
+  "SelectedNode": "\\BigChessProject\\BigChessProject\\Board.cpp",
   "PreviewInSolutionExplorer": false
 }
