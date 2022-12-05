@@ -1,8 +1,2 @@
-﻿  Bishop.cpp
-  Board.cpp
-  Cell.cpp
-  Pawn.cpp
-  BasePiece.cpp
-  main.cpp
-  Generating Code...
-  BigChessProject.vcxproj -> C:\Users\user\Source\Repos\DEVilInCode\Curse4\BigChessProject\x64\Debug\BigChessProject.exe
+﻿  main.cpp
+  BigChessProject.vcxproj -> C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\x64\Debug\BigChessProject.exe
