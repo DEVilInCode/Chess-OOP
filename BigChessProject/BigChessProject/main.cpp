@@ -1,8 +1,8 @@
 #include <iostream>
 #include <conio.h>
 #include "Board.h"
-#include "CMatrix.h"
-//#include "BasePiece.h"
+#include "BasePiece.h"
+
 Board board;
 
 void checkValidPos(char letter, char num)
@@ -22,6 +22,8 @@ void tryMove()
 		std::cout << std::endl;
 
 		checkValidPos(fromPosLetter, fromPosNum);
+
+		std::cout << "->";
 
 		toPosLetter = _getche();
 		toPosNum = _getche();

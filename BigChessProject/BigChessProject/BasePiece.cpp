@@ -15,7 +15,10 @@ PieceColor BasePiece::GetColor()
 
 std::string BasePiece::GetType()
 {
-	return this->type;// << std::endl;	
+	if (this != nullptr)
+		return this->type;// << std::endl;
+	else
+		return " ";
 }
 
 void BasePiece::SetPosition(Position pos)

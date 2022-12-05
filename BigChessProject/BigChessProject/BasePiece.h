@@ -11,6 +11,20 @@ enum class PieceColor
 
 typedef struct Position {
 	int x, y;
+
+	friend bool operator==(const Position& p1, const Position& p2)
+	{
+		return (p1.x == p2.x) && (p1.y == p2.y);
+	}
+
+	friend bool operator<(const Position& p1, const Position& p2)
+	{
+		if (p1.x == p2.x)
+			return p1.y < p2.y;
+		else
+			return p1.x < p2.x;
+	}
+
 }Position;
 
 class BasePiece{

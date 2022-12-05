@@ -22,7 +22,6 @@
     <ClCompile Include="Bishop.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Cell.cpp" />
-    <ClCompile Include="CMatrix.cpp" />
     <ClCompile Include="Pawn.cpp" />
     <ClCompile Include="BasePiece.cpp" />
     <ClCompile Include="main.cpp" />
@@ -32,7 +31,6 @@
     <ClInclude Include="Bishop.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="Cell.h" />
-    <ClInclude Include="CMatrix.h" />
     <ClInclude Include="ConsoleColor.h" />
     <ClInclude Include="Pawn.h" />
   </ItemGroup>

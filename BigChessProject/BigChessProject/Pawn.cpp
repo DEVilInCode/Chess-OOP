@@ -1,5 +1,4 @@
 ﻿#include <iostream>
-#include "Cell.h"
 #include "Board.h"
 #include "BasePiece.h"
 #include "Pawn.h"

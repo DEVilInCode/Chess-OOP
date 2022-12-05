@@ -1,6 +1,6 @@
 #pragma once
+#include <map>
 #include "BasePiece.h"
-#include "Cell.h"
 
 class Board
 {
@@ -14,7 +14,8 @@ public:
 	BasePiece* GetPiece(Position piecePos);
 
 protected:
-	Cell board[8][8];
+	std::map<Position, BasePiece*> board;
+	//Cell board[8][8];
 	
 	void InitializePieces();
 	bool IsInBoard(Position pos);

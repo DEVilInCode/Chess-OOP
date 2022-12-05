@@ -16,7 +16,11 @@ Board::~Board()
 	{
 		for (int j= 0; j < 8; j++)
 		{
-			board[i][j].Clear();
+			BasePiece* tmp = board.at({ i,j });
+			if (tmp != nullptr)
+				delete tmp;
+			tmp = nullptr;
+			board.erase({ i, j });
 		}
 	}
 }
@@ -40,8 +44,8 @@ void Board::Draw()
 				current = DarkGray;
 			else
 				current = Black;
-			BasePiece* currentPiece = board[row][column].GetPiece();
-			if (currentPiece == NULL)
+			BasePiece* currentPiece = board.at({ row, column });
+			if (currentPiece->GetType() == " ")
 			{
 				std::cout << "|";
 				SetColor(White, current);
@@ -72,7 +76,7 @@ void Board::Draw()
 
 bool Board::MovePiece(Position moveFrom, Position moveTo)
 {
-	return false;
+	return board.at(moveFrom)->validMove(moveTo);
 }
 
 void Board::InitializePieces()
@@ -80,18 +84,31 @@ void Board::InitializePieces()
 	//Pawns
 	for (int i = 0; i < 8; i++)
 	{
+
+
 		Position blackPawnPos = { i, 6 };
-		board[blackPawnPos.y][blackPawnPos.x].SetPiece(new Pawn(PieceColor::black, blackPawnPos));
+		board.insert(std::pair<Position, BasePiece*>({blackPawnPos.y, blackPawnPos.x }, new Pawn(PieceColor::black, blackPawnPos)));
+
 
 		Position whitePawnPos = { i, 1 };
-		board[whitePawnPos.y][whitePawnPos.x].SetPiece(new Pawn(PieceColor::white, whitePawnPos));
+		board.insert(std::pair<Position, BasePiece*>({ whitePawnPos.y, whitePawnPos.x }, new Pawn(PieceColor::white, whitePawnPos)));
+
+		for (int j = 0; j < 8; j++)
+		{
+			board.insert(std::pair<Position, BasePiece*>(Position{ j, i }, nullptr));
+		}
 	}
 
 	//Bishops
 
 }
 
+bool Board::IsInBoard(Position pos)
+{
+	return true;
+}
+
 BasePiece* Board::GetPiece(Position pos)
 {
-	return this->board[pos.x][pos.y].GetPiece();
+	return this->board.at(pos);
 }
