@@ -39,7 +39,7 @@ void tryMove()
 			std::to_string(toPosLetter) + std::to_string(toPosNum) + board.GetPiece({ toPosLetter, toPosNum })->GetType();
 
 		if (board.MovePiece({ fromPosLetter, fromPosNum }, { toPosLetter, toPosNum }))
-			lastMove.push(str);
+			std::cout << str << std::endl;//lastMove.push(str);
 
 		std::cout << fromPosLetter << fromPosNum << "->" << toPosLetter << toPosNum << std::endl;
 		
@@ -55,7 +55,12 @@ int main()
 
 	while (true) {
 		system("cls");
-		std::cout << "D - draw board\nM - move piece\nS - save game\nL - load game\nE - exit\n";
+		std::cout << "D - draw board\
+					\nM - move piece\
+					\nU - undo last move\
+					\nS - save game\
+					\nL - load game\
+					\nE - exit\n";
 
 		switch (_getch())
 		{
@@ -69,7 +74,7 @@ int main()
 			std::cout << "Enter move(example: a2-a3):" << std::endl;
 			board.Draw();
 			tryMove();
-			
+			board.Draw();
 			//std::cout << letter << num << std::endl;
 			system("pause");
 			break;

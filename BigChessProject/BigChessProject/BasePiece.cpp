@@ -9,6 +9,11 @@ bool operator<(const Position& p1, const Position& p2)
 		return p1.x < p2.x;
 }
 
+Position operator-(const Position& p1, const Position& p2)
+{
+	return Position{ p1.x - p2.x, p1.y - p2.y };
+}
+
 BasePiece::BasePiece() {
 	this->type = " ";
 }

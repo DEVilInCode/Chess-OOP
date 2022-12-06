@@ -1,18 +1,39 @@
 ﻿#include <iostream>
+#include "Board.h"
 #include "Bishop.h"
+
+extern Board board;
 
 Bishop::Bishop(PieceColor color, Position pos)
 {
 	this->color = color;
-	if (this->color == PieceColor::black)
-		this->type = "bB";//L'♟';
-	else
-		this->type = "wB";//L'♙';
+	this->type = "B";//L'♙';
 	this->pos = pos;
 }
 Bishop::~Bishop(){}
 
 bool Bishop::validMove(Position moveTo)
 {
-	return false;
+	Position current, delta = moveTo - this->pos;
+
+	if (abs(delta.x) != abs(delta.y))
+		return false;
+	
+	//If cells in row have pieces
+	current.x = delta.x < 0 ? this->pos.x * -1 : this->pos.x;
+	current.y = delta.y < 0 ? this->pos.y * -1 : this->pos.y;
+
+	for (int i = 1; i < abs(delta.x); i++)
+	{
+		current.x++;
+		current.y++;
+		if (board.GetPiece(Position{ abs(current.x), abs(current.y) }) != nullptr)
+			return false;
+	}
+
+	//if our piece in moveTo cell
+	if (board.GetPiece(moveTo) != nullptr && board.GetPiece(moveTo)->GetColor() == this->GetColor())
+		return false;
+
+	return true;
 }
