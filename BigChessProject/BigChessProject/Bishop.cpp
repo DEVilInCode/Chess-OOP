@@ -1,5 +1,4 @@
-﻿#include <iostream>
-#include "Board.h"
+﻿#include "Board.h"
 #include "Bishop.h"
 
 extern Board board;

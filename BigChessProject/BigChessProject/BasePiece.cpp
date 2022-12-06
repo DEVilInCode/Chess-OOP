@@ -1,5 +1,5 @@
-﻿#include "BasePiece.h"
-#include <iostream>
+﻿#include "Includes.h"
+#include "BasePiece.h"
 
 bool operator<(const Position& p1, const Position& p2)
 {
@@ -17,9 +17,8 @@ Position operator-(const Position& p1, const Position& p2)
 BasePiece::BasePiece() {
 	this->type = " ";
 }
-BasePiece::~BasePiece() {
-	//std::cout << "Destroyed" << std::endl;
-}
+
+BasePiece::~BasePiece() {}
 
 PieceColor BasePiece::GetColor()
 {
@@ -29,7 +28,7 @@ PieceColor BasePiece::GetColor()
 std::string BasePiece::GetType()
 {
 	if (this != nullptr)
-		return this->type;// << std::endl;
+		return this->type;
 	else
 		return " ";
 }

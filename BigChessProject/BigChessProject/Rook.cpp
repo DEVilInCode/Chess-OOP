@@ -1,6 +1,5 @@
 #include "Rook.h"
 #include "Board.h"
-#include <iostream>
 
 extern Board board;
 
@@ -11,7 +10,7 @@ Rook::Rook(PieceColor color, Position pos)
 	this->pos = pos;
 }
 
-Rook::~Rook(){}
+Rook::~Rook() {}
 
 bool Rook::validMove(Position moveTo)
 {

@@ -1,7 +1,7 @@
 #pragma once
 #include "BasePiece.h"
 
-class Bishop :public BasePiece
+class Bishop :virtual public BasePiece
 {
 public:
 	Bishop(PieceColor color, Position pos);

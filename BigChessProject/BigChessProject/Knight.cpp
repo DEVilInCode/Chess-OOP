@@ -6,7 +6,7 @@ extern Board board;
 Knight::Knight(PieceColor color, Position pos)
 {
 	this->color = color;
-	this->type = "K";
+	this->type = "N";
 	this->pos = pos;
 }
 

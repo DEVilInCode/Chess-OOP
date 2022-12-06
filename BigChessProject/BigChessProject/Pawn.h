@@ -9,5 +9,7 @@ public:
 	bool validMove(Position moveTo) override;
 
 protected:
+	void transformation();
+
 	bool doubleJumpAvailable;
 };

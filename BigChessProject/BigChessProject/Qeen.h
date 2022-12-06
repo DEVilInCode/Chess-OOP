@@ -3,7 +3,7 @@
 #include "Bishop.h"
 #include "Rook.h"
 
-class Qeen:public BasePiece
+class Qeen: public Bishop, public Rook
 {
 public:
 	Qeen(PieceColor color, Position pos);

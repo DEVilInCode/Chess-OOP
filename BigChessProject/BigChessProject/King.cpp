@@ -10,7 +10,7 @@ King::King(PieceColor color, Position pos)
 	this->pos = pos;
 }
 
-King::~King() {};
+King::~King() {}
 
 bool King::notDangerCell(Position pos)
 {

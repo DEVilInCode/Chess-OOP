@@ -1,5 +1,4 @@
-#include <iostream>
-#include <Windows.h>
+#include "Includes.h"
 #include "ConsoleColor.h"
 #include "Board.h"
 #include "King.h"
@@ -20,11 +19,8 @@ Board::~Board()
 	{
 		for (int j= 1; j < 9; j++)
 		{
-			BasePiece* tmp = board.at({ i,j });
-			if (tmp != nullptr)
-				delete tmp;
-			tmp = nullptr;
-			board.erase({ i, j });
+			delete board.at(Position{ i,j });
+			board.erase(Position{ i, j });
 		}
 	}
 }

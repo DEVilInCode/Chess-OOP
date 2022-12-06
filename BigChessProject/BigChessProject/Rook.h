@@ -1,7 +1,7 @@
 #pragma once
 #include "BasePiece.h"
 
-class Rook :public BasePiece
+class Rook :virtual public BasePiece
 {
 public:
 	Rook(PieceColor color, Position pos);
