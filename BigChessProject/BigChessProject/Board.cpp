@@ -1,7 +1,6 @@
 #include <iostream>
 #include <Windows.h>
 #include "ConsoleColor.h"
-#include "Cell.h"
 #include "Board.h"
 #include "Pawn.h"
 
@@ -30,21 +29,21 @@ void Board::Draw()
 	ConsoleColor current;
 
 	std::cout << " a  b  c  d  e  f  g  h " << std::endl;
-	for (size_t i = 0; i < 8; i++)
+	for (size_t i = 1; i < 9; i++)
 	{
 		std::cout << " --";
 	}
 	std::cout << std::endl;
 	
-	for (int row = 0; row < 8; row++)
+	for (int row = 1; row < 9; row++)
 	{
-		for (int column = 0; column < 8; column++)
+		for (int column = 1; column < 9; column++)
 		{
 			if ((column + row) % 2 == 0)
 				current = DarkGray;
 			else
 				current = Black;
-			BasePiece* currentPiece = board.at({ row, column });
+			BasePiece* currentPiece = board.at({ column, row });
 			if (currentPiece->GetType() == " ")
 			{
 				std::cout << "|";
@@ -65,8 +64,8 @@ void Board::Draw()
 				
 		}
 
-		std::cout << '|' << (1 + row) << std::endl;
-		for (size_t i = 0; i < 8; i++)
+		std::cout << '|' << (row) << std::endl;
+		for (size_t i = 1; i < 9; i++)
 		{
 			std::cout << " --";
 		}
@@ -76,26 +75,29 @@ void Board::Draw()
 
 bool Board::MovePiece(Position moveFrom, Position moveTo)
 {
-	return board.at(moveFrom)->validMove(moveTo);
+	if(board.at(moveFrom) != nullptr)
+		return board.at(moveFrom)->validMove(moveTo);
+	std::cout << "moveFrom is null" << std::endl;
+	return false;
 }
 
 void Board::InitializePieces()
 {
 	//Pawns
-	for (int i = 0; i < 8; i++)
+	for (int i = 1; i < 9; i++)
 	{
 
 
-		Position blackPawnPos = { i, 6 };
-		board.insert(std::pair<Position, BasePiece*>({blackPawnPos.y, blackPawnPos.x }, new Pawn(PieceColor::black, blackPawnPos)));
+		Position blackPawnPos = { i, 7 };
+		board.insert(std::pair<Position, BasePiece*>({ blackPawnPos.x, blackPawnPos.y }, new Pawn(PieceColor::black, blackPawnPos)));
 
 
-		Position whitePawnPos = { i, 1 };
-		board.insert(std::pair<Position, BasePiece*>({ whitePawnPos.y, whitePawnPos.x }, new Pawn(PieceColor::white, whitePawnPos)));
+		Position whitePawnPos = { i, 2 };
+		board.insert(std::pair<Position, BasePiece*>({ whitePawnPos.x, whitePawnPos.y }, new Pawn(PieceColor::white, whitePawnPos)));
 
-		for (int j = 0; j < 8; j++)
+		for (int j = 1; j < 9; j++)
 		{
-			board.insert(std::pair<Position, BasePiece*>(Position{ j, i }, nullptr));
+			board.insert(std::pair<Position, BasePiece*>(Position{ i, j }, nullptr));
 		}
 	}
 

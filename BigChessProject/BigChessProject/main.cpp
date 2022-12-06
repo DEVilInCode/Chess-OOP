@@ -1,35 +1,36 @@
 #include <iostream>
 #include <conio.h>
+#include <stack>
 #include "Board.h"
 #include "BasePiece.h"
 
 Board board;
 
-void checkValidPos(char letter, char num)
+void checkValidPos(int num)
 {
-	if (letter < 'a' || letter > 'h' || num < '1' || num > '8')
-		throw std::exception("Invalid position");
+	if (num < 1 || num > 8)
+		throw std::exception("\nInvalid position");
 	
 }
 
 void tryMove()
 {
-	char fromPosNum, fromPosLetter, toPosNum, toPosLetter;
+	int fromPosNum, fromPosLetter, toPosNum, toPosLetter;
 	try
 	{
-		fromPosLetter = _getche();
-		fromPosNum = _getche();
-		std::cout << std::endl;
-
-		checkValidPos(fromPosLetter, fromPosNum);
+		checkValidPos(fromPosLetter = _getche() - 'a' + 1);
+		checkValidPos(fromPosNum = _getche() - '0');
 
 		std::cout << "->";
 
-		toPosLetter = _getche();
-		toPosNum = _getche();
+		checkValidPos(toPosLetter = _getche() - 'a' + 1);
+		checkValidPos(toPosNum = _getche() - '0');
 		std::cout << std::endl;
 
-		checkValidPos(toPosLetter, toPosNum);
+		std::cout << board.MovePiece({ fromPosLetter, fromPosNum}, { toPosLetter, toPosNum }) << std::endl;
+		std::cout << fromPosLetter << fromPosNum << "->" << toPosLetter << toPosNum << std::endl;
+		//std::cout << board.MovePiece({ fromPosNum, fromPosLetter }, { toPosNum, toPosLetter }) << std::endl;
+
 	}
 	catch (const std::exception& ex)
 	{
@@ -71,7 +72,7 @@ int main()
 
 		case 'e':
 		case 'E':
-			return 0;
+			exit(0);
 			break;
 
 		default:

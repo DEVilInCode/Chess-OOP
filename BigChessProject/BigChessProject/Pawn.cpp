@@ -33,7 +33,7 @@ bool Pawn::validMove(Position moveTo)
     //***********************  Move Validity Checks  **********************************
 
     // One square forward to empty square
-    if (moveTo.y == pos.y + validMove1 && moveTo.x == pos.x && board.GetPiece(moveTo) == NULL) {
+    if (moveTo.y == pos.y + validMove1 && moveTo.x == pos.x && board.GetPiece(moveTo) == nullptr) {
         validMove = true;
 
         // When this Validate move function evaluates true, the pawn will be moved. Here we
@@ -43,7 +43,7 @@ bool Pawn::validMove(Position moveTo)
     }
     // Two squares forward to empty square. Only available on pawn's first move
     else if (doubleJumpAvailable == true && moveTo.y == (pos.y + validMove2) && moveTo.x == pos.x
-        && board.GetPiece(moveTo) == NULL) {
+        && board.GetPiece(moveTo) == nullptr) {
 
         validMove = true;
     }
@@ -51,7 +51,7 @@ bool Pawn::validMove(Position moveTo)
     else if (moveTo.y == pos.y + validMove1 && (moveTo.x == pos.x - 1 || moveTo.x == pos.x + 1)) {
 
         // Check if there is a piece in the diagonal position, if so, is it an opposite color
-        if (board.GetPiece(moveTo) != NULL && (board.GetPiece(moveTo)->GetColor() != this->color)) {
+        if (board.GetPiece(moveTo) != nullptr && (board.GetPiece(moveTo)->GetColor() != this->color)) {
             validMove = true;
         }
     }

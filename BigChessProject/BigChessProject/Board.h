@@ -15,7 +15,6 @@ public:
 
 protected:
 	std::map<Position, BasePiece*> board;
-	//Cell board[8][8];
 	
 	void InitializePieces();
 	bool IsInBoard(Position pos);
