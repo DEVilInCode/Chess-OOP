@@ -29,8 +29,6 @@ void tryMove()
 
 		std::cout << board.MovePiece({ fromPosLetter, fromPosNum}, { toPosLetter, toPosNum }) << std::endl;
 		std::cout << fromPosLetter << fromPosNum << "->" << toPosLetter << toPosNum << std::endl;
-		//std::cout << board.MovePiece({ fromPosNum, fromPosLetter }, { toPosNum, toPosLetter }) << std::endl;
-
 	}
 	catch (const std::exception& ex)
 	{
@@ -53,7 +51,8 @@ int main()
 			break;
 		case 'm':
 		case 'M':
-			std::cout << "Enter move(example: a1 - a2):" << std::endl;
+			std::cout << "Enter move(example: a2-a3):" << std::endl;
+			board.Draw();
 			tryMove();
 			
 			//std::cout << letter << num << std::endl;

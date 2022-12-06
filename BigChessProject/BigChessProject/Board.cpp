@@ -75,8 +75,17 @@ void Board::Draw()
 
 bool Board::MovePiece(Position moveFrom, Position moveTo)
 {
-	if(board.at(moveFrom) != nullptr)
-		return board.at(moveFrom)->validMove(moveTo);
+	if (board.at(moveFrom) != nullptr) 
+	{
+		if (board.at(moveFrom)->validMove(moveTo))
+		{
+			board[moveTo] = board.at(moveFrom);
+			board[moveTo]->SetPosition(moveTo);
+			board[moveFrom] = nullptr;
+			return true;
+		}
+		return false;
+	}
 	std::cout << "moveFrom is null" << std::endl;
 	return false;
 }
