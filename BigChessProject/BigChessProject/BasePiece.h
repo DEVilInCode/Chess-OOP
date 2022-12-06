@@ -11,13 +11,14 @@ enum class PieceColor
 
 typedef struct Position {
 	int x, y;
-	//friend bool operator<(const Position& p1, const Position& p2);
+	friend bool operator<(const Position& p1, const Position& p2);
+	friend Position operator-(const Position& p1, const Position& p2);
 }Position;
 
 class BasePiece{
 public:
 	BasePiece();
-	~BasePiece();
+	virtual ~BasePiece();
 
 	PieceColor GetColor();
 	std::string GetType();
