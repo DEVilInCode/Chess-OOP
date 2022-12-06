@@ -1,16 +1,24 @@
 #include <iostream>
 #include <conio.h>
 #include <stack>
+#include <string>
 #include "Board.h"
 #include "BasePiece.h"
 
 Board board;
+std::stack<std::string> lastMove;
 
 void checkValidPos(int num)
 {
 	if (num < 1 || num > 8)
 		throw std::exception("\nInvalid position");
 	
+}
+
+void undoLastMove()
+{
+	std::cout << lastMove.top() << std::endl;
+	lastMove.pop();
 }
 
 void tryMove()
@@ -27,8 +35,14 @@ void tryMove()
 		checkValidPos(toPosNum = _getche() - '0');
 		std::cout << std::endl;
 
-		std::cout << board.MovePiece({ fromPosLetter, fromPosNum}, { toPosLetter, toPosNum }) << std::endl;
+		std::string str = std::to_string(fromPosLetter) + std::to_string(fromPosNum) + board.GetPiece({ fromPosLetter, fromPosNum })->GetType() +
+			std::to_string(toPosLetter) + std::to_string(toPosNum) + board.GetPiece({ toPosLetter, toPosNum })->GetType();
+
+		if (board.MovePiece({ fromPosLetter, fromPosNum }, { toPosLetter, toPosNum }))
+			lastMove.push(str);
+
 		std::cout << fromPosLetter << fromPosNum << "->" << toPosLetter << toPosNum << std::endl;
+		
 	}
 	catch (const std::exception& ex)
 	{
@@ -38,6 +52,7 @@ void tryMove()
 
 int main()
 {
+
 	while (true) {
 		system("cls");
 		std::cout << "D - draw board\nM - move piece\nS - save game\nL - load game\nE - exit\n";
@@ -57,6 +72,11 @@ int main()
 			
 			//std::cout << letter << num << std::endl;
 			system("pause");
+			break;
+
+		case 'u':
+		case 'U':
+			undoLastMove();
 			break;
 
 		case 's':

@@ -1,2 +1,141 @@
 ﻿  Board.cpp
-  BigChessProject.vcxproj -> C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\x64\Debug\BigChessProject.exe
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstddef(142,55): error C2676: binary '<': 'const _Ty' does not define this operator or a conversion to a type acceptable to the predefined operator
+          with
+          [
+              _Ty=Position
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\map(653,17): message : could be 'bool std::operator <(const std::multimap<_Kty,_Ty,_Pr,_Alloc> &,const std::multimap<_Kty,_Ty,_Pr,_Alloc> &)'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstddef(142,49): message : 'bool std::operator <(const std::multimap<_Kty,_Ty,_Pr,_Alloc> &,const std::multimap<_Kty,_Ty,_Pr,_Alloc> &)': could not deduce template argument for 'const std::multimap<_Kty,_Ty,_Pr,_Alloc> &' from 'const _Ty'
+          with
+          [
+              _Ty=Position
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\map(420,17): message : or       'bool std::operator <(const std::map<_Kty,_Ty,_Pr,_Alloc> &,const std::map<_Kty,_Ty,_Pr,_Alloc> &)'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstddef(142,49): message : 'bool std::operator <(const std::map<_Kty,_Ty,_Pr,_Alloc> &,const std::map<_Kty,_Ty,_Pr,_Alloc> &)': could not deduce template argument for 'const std::map<_Kty,_Ty,_Pr,_Alloc> &' from 'const _Ty'
+          with
+          [
+              _Ty=Position
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\tuple(693,27): message : or       'bool std::operator <(const std::tuple<_Types...> &,const std::tuple<_Types...> &)'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstddef(142,49): message : 'bool std::operator <(const std::tuple<_Types...> &,const std::tuple<_Types...> &)': could not deduce template argument for 'const std::tuple<_Types...> &' from 'const _Ty'
+          with
+          [
+              _Ty=Position
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3545,30): message : or       'bool std::operator <(std::nullptr_t,const std::unique_ptr<_Ty,_Dx> &)'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstddef(142,49): message : 'bool std::operator <(std::nullptr_t,const std::unique_ptr<_Ty,_Dx> &)': could not deduce template argument for 'const std::unique_ptr<_Ty,_Dx> &' from 'const _Ty'
+          with
+          [
+              _Ty=Position
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3539,30): message : or       'bool std::operator <(const std::unique_ptr<_Ty,_Dx> &,std::nullptr_t)'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstddef(142,49): message : 'bool std::operator <(const std::unique_ptr<_Ty,_Dx> &,std::nullptr_t)': could not deduce template argument for 'const std::unique_ptr<_Ty,_Dx> &' from 'const _Ty'
+          with
+          [
+              _Ty=Position
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3481,17): message : or       'bool std::operator <(const std::unique_ptr<_Ty,_Dx> &,const std::unique_ptr<_Ty2,_Dx2> &)'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstddef(142,49): message : 'bool std::operator <(const std::unique_ptr<_Ty,_Dx> &,const std::unique_ptr<_Ty2,_Dx2> &)': could not deduce template argument for 'const std::unique_ptr<_Ty,_Dx> &' from 'const _Ty'
+          with
+          [
+              _Ty=Position
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1879,17): message : or       'bool std::operator <(std::nullptr_t,const std::shared_ptr<_Ty> &) noexcept'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstddef(142,49): message : 'bool std::operator <(std::nullptr_t,const std::shared_ptr<_Ty> &) noexcept': could not deduce template argument for 'const std::shared_ptr<_Ty> &' from 'const _Ty'
+          with
+          [
+              _Ty=Position
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1874,17): message : or       'bool std::operator <(const std::shared_ptr<_Ty> &,std::nullptr_t) noexcept'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstddef(142,49): message : 'bool std::operator <(const std::shared_ptr<_Ty> &,std::nullptr_t) noexcept': could not deduce template argument for 'const std::shared_ptr<_Ty> &' from 'const _Ty'
+          with
+          [
+              _Ty=Position
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1827,17): message : or       'bool std::operator <(const std::shared_ptr<_Ty> &,const std::shared_ptr<_Ty0> &) noexcept'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstddef(142,49): message : 'bool std::operator <(const std::shared_ptr<_Ty> &,const std::shared_ptr<_Ty0> &) noexcept': could not deduce template argument for 'const std::shared_ptr<_Ty> &' from 'const _Ty'
+          with
+          [
+              _Ty=Position
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstring(5241,17): message : or       'bool std::operator <(const std::basic_string<_Elem,_Traits,_Alloc> &,const _Elem *const )'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstddef(142,49): message : 'bool std::operator <(const std::basic_string<_Elem,_Traits,_Alloc> &,const _Elem *const )': could not deduce template argument for 'const std::basic_string<_Elem,_Traits,_Alloc> &' from 'const _Ty'
+          with
+          [
+              _Ty=Position
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstring(5236,17): message : or       'bool std::operator <(const _Elem *const ,const std::basic_string<_Elem,_Traits,_Alloc> &)'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstddef(142,49): message : 'bool std::operator <(const _Elem *const ,const std::basic_string<_Elem,_Traits,_Alloc> &)': could not deduce template argument for 'const _Elem *const ' from 'const _Ty'
+          with
+          [
+              _Ty=Position
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstring(5230,17): message : or       'bool std::operator <(const std::basic_string<_Elem,_Traits,_Alloc> &,const std::basic_string<_Elem,_Traits,_Alloc> &) noexcept'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstddef(142,49): message : 'bool std::operator <(const std::basic_string<_Elem,_Traits,_Alloc> &,const std::basic_string<_Elem,_Traits,_Alloc> &) noexcept': could not deduce template argument for 'const std::basic_string<_Elem,_Traits,_Alloc> &' from 'const _Ty'
+          with
+          [
+              _Ty=Position
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xutility(3599,5): message : or       'bool std::operator <(const std::move_iterator<_Iter> &,const std::move_iterator<_Iter2> &) noexcept(<expr>)'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstddef(142,49): message : 'bool std::operator <(const std::move_iterator<_Iter> &,const std::move_iterator<_Iter2> &) noexcept(<expr>)': could not deduce template argument for 'const std::move_iterator<_Iter> &' from 'const _Ty'
+          with
+          [
+              _Ty=Position
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xutility(1422,5): message : or       'bool std::operator <(const std::reverse_iterator<_BidIt> &,const std::reverse_iterator<_BidIt2> &) noexcept(<expr>)'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstddef(142,49): message : 'bool std::operator <(const std::reverse_iterator<_BidIt> &,const std::reverse_iterator<_BidIt2> &) noexcept(<expr>)': could not deduce template argument for 'const std::reverse_iterator<_BidIt> &' from 'const _Ty'
+          with
+          [
+              _Ty=Position
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\utility(387,27): message : or       'bool std::operator <(const std::pair<_Ty1,_Ty2> &,const std::pair<_Ty1,_Ty2> &)'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstddef(142,49): message : 'bool std::operator <(const std::pair<_Ty1,_Ty2> &,const std::pair<_Ty1,_Ty2> &)': could not deduce template argument for 'const std::pair<_Ty1,_Ty2> &' from 'const _Ty'
+          with
+          [
+              _Ty=Position
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xtree(1690,18): message : see reference to variable template 'const bool _Nothrow_compare<std::less<Position>,Position,Position>' being compiled
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xtree(1689,30): message : while compiling class template member function 'std::pair<std::_Tree_node<std::pair<const Position,BasePiece *>,std::_Default_allocator_traits<_Alloc>::void_pointer> *,std::_Tree_node<std::pair<const Position,BasePiece *>,std::_Default_allocator_traits<_Alloc>::void_pointer> *> std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::_Eqrange<Position>(const _Other &) noexcept(<expr>) const'
+          with
+          [
+              _Alloc=std::allocator<std::pair<const Position,BasePiece *>>,
+              _Kty=Position,
+              _Ty=BasePiece *,
+              _Pr=std::less<Position>,
+              _Other=Position
+          ]
+  Pawn.cpp
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(75,9): error C2065: 'string': undeclared identifier
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(75,16): error C2146: syntax error: missing ';' before identifier 'last_move'
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(75,16): error C2065: 'last_move': undeclared identifier
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(75,28): error C2065: 'current_game': undeclared identifier
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(78,9): error C2653: 'Chess': is not a class or namespace name
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(79,9): error C2653: 'Chess': is not a class or namespace name
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(80,9): error C2065: 'current_game': undeclared identifier
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(80,33): error C2065: 'last_move': undeclared identifier
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(83,29): error C2065: 'current_game': undeclared identifier
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(83,73): error C2039: 'iRow': is not a member of 'Position'
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\BasePiece.h(12,16): message : see declaration of 'Position'
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(83,90): error C2039: 'iColumn': is not a member of 'Position'
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\BasePiece.h(12,16): message : see declaration of 'Position'
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(91,33): error C2039: 'iRow': is not a member of 'Position'
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\BasePiece.h(12,16): message : see declaration of 'Position'
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(91,53): error C2039: 'iRow': is not a member of 'Position'
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\BasePiece.h(12,16): message : see declaration of 'Position'
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(91,84): error C2039: 'iColumn': is not a member of 'Position'
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\BasePiece.h(12,16): message : see declaration of 'Position'
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(91,94): error C2065: 'present': undeclared identifier
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(93,13): error C2065: 'cout': undeclared identifier
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(94,13): error C2065: 'bValid': undeclared identifier
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(96,13): error C2065: 'S_enPassant': undeclared identifier
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(97,13): error C2065: 'S_enPassant': undeclared identifier
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(97,57): error C2039: 'iRow': is not a member of 'Position'
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\BasePiece.h(12,16): message : see declaration of 'Position'
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(98,13): error C2065: 'S_enPassant': undeclared identifier
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(98,60): error C2039: 'iColumn': is not a member of 'Position'
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\BasePiece.h(12,16): message : see declaration of 'Position'
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(165,1): error C2059: syntax error: '}'
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\Pawn.cpp(165,1): error C2143: syntax error: missing ';' before '}'
+  main.cpp
+C:\Users\user\source\repos\DEVilInCode\Curse4\BigChessProject\BigChessProject\main.cpp(74,4): error C2065: 'moves': undeclared identifier
+  Generating Code...

@@ -11,20 +11,7 @@ enum class PieceColor
 
 typedef struct Position {
 	int x, y;
-
-	friend bool operator==(const Position& p1, const Position& p2)
-	{
-		return (p1.x == p2.x) && (p1.y == p2.y);
-	}
-
-	friend bool operator<(const Position& p1, const Position& p2)
-	{
-		if (p1.x == p2.x)
-			return p1.y < p2.y;
-		else
-			return p1.x < p2.x;
-	}
-
+	//friend bool operator<(const Position& p1, const Position& p2);
 }Position;
 
 class BasePiece{
@@ -35,6 +22,7 @@ public:
 	PieceColor GetColor();
 	std::string GetType();
 	void SetPosition(Position pos);
+	bool isWhite();
 	virtual bool validMove(Position moveTo) = 0;
 
 protected:
