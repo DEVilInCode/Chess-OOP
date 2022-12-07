@@ -4,5 +4,5 @@
 #include "Bishop.h"
 #include "Knight.h"
 #include "Rook.h"
-#include "Qeen.h"
+#include "Queen.h"
 #include "King.h"

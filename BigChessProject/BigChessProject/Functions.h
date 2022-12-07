@@ -1,6 +1,6 @@
 #pragma once
 
-bool tryMove();
+void tryMove();
 bool undoLastMove();
 void checkValidPos(int num);
 void save();

@@ -27,7 +27,7 @@
     <ClCompile Include="Pawn.cpp" />
     <ClCompile Include="BasePiece.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Qeen.cpp" />
+    <ClCompile Include="Queen.cpp" />
     <ClCompile Include="Rook.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -41,7 +41,7 @@
     <ClInclude Include="Knight.h" />
     <ClInclude Include="Pawn.h" />
     <ClInclude Include="Pieces.h" />
-    <ClInclude Include="Qeen.h" />
+    <ClInclude Include="Queen.h" />
     <ClInclude Include="Rook.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

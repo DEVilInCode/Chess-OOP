@@ -8,7 +8,7 @@ extern std::stack<std::string> lastMove;
 Pawn::Pawn(PieceColor color, Position pos, bool doubleJump)
 {
 	this->color = color;
-	this->type = "P";//L'♙';
+	this->type = "P";
 	this->pos = pos;
 	this->doubleJumpAvailable = doubleJump;
 }
@@ -24,14 +24,8 @@ bool Pawn::validMove(Position moveTo)
 {
     Position delta = moveTo - this->pos;
     bool valid = false;
-    int move1 = 1,
-        move2 = 2;
-
-    if (!this->isWhite())
-    {
-        move1 *= -1;
-        move2 *= -1;
-    }
+    int move1 = this->isWhite() ? 1 : -1,
+        move2 = this->isWhite() ? 2 : -2;
 
     //move 1 cell
     if (moveTo.y == this->pos.y + move1 && moveTo.x == pos.x && board.GetPiece(moveTo) == nullptr) {

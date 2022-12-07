@@ -6,7 +6,7 @@ extern Board board;
 Bishop::Bishop(PieceColor color, Position pos)
 {
 	this->color = color;
-	this->type = "B";//L'♙';
+	this->type = "B";
 	this->pos = pos;
 }
 Bishop::~Bishop(){}
@@ -15,10 +15,15 @@ bool Bishop::validMove(Position moveTo)
 {
 	Position current, delta = moveTo - this->pos;
 
+	//if moveTo pos change coordinates in diff values
 	if (abs(delta.x) != abs(delta.y))
 		return false;
+
+	//if our piece in moveTo cell
+	if (board.GetPiece(moveTo) != nullptr && board.GetPiece(moveTo)->GetColor() == this->GetColor())
+		return false;
 	
-	//If cells in row have pieces
+	//If cells in diagonal have pieces
 	current.x = delta.x < 0 ? this->pos.x * -1 : this->pos.x;
 	current.y = delta.y < 0 ? this->pos.y * -1 : this->pos.y;
 
@@ -30,9 +35,7 @@ bool Bishop::validMove(Position moveTo)
 			return false;
 	}
 
-	//if our piece in moveTo cell
-	if (board.GetPiece(moveTo) != nullptr && board.GetPiece(moveTo)->GetColor() == this->GetColor())
-		return false;
+	
 
 	return true;
 }

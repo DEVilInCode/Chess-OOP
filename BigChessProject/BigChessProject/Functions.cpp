@@ -5,6 +5,7 @@
 
 extern Board board;
 extern std::stack<std::string> lastMove;
+extern bool whiteTurn;
 
 const std::string location = "D:\\file.txt";
 
@@ -12,24 +13,24 @@ void save()
 {
 	std::ofstream file(location);
 	std::string info;
-	std::stringstream strm;
-	for(int i = 0; !lastMove.empty(); i++)
+	
+	file << lastMove.size() << std::endl;
+	while (!lastMove.empty())
 	{
-		info = lastMove.top();
-		strm << info;
+		std::stringstream strm;
+		strm << lastMove.top();
+		lastMove.pop();
 
 		strm >> info;
-		std::cout << info << std::endl;
-		system("pause");
 		while (strm)
 		{
 			file << info << " ";
 			strm >> info;
 		}
-
 		file << std::endl;
-		lastMove.pop();
 	}
+	
+
 	for (int i = 1; i < 9; i++)
 	{
 		for (int j = 1; j < 9; j++)
@@ -42,18 +43,55 @@ void save()
 		}
 		file << std::endl;
 	}
+	
 	file.close();
 }
 
 void load()
 {
+	std::ifstream file(location);
 
+	if (!file.is_open())
+		throw std::exception("Can't open file");
+
+	while (!lastMove.empty())
+		lastMove.pop();
+
+
+	int stackSize;
+	std::stringstream strm;
+
+	std::string str, tmp;
+	std::getline(file, tmp);
+	strm << tmp;
+	strm >> stackSize;
+
+	for (int i = 0; i < stackSize; i++) {
+		std::getline(file, tmp);
+		str = tmp + str;
+	}
+
+	strm.clear();
+	strm << str;
+
+	for (int i = 0; strm; i++)
+	{
+
+	}
+
+	std::cout << str;
+	system("pause");
+
+
+	file.close();
 }
 
 void checkValidPos(int num)
 {
-	if (num < 1 || num > 8)
+	if (num < 1 || num > 8) {
+		std::cout << "\b\b\b\b\b\b";
 		throw std::exception("Invalid position");
+	}
 
 }
 
@@ -89,7 +127,7 @@ bool undoLastMove()
 				p[i] = new Pawn(pColor[i], pos[i], dJump);
 				break;
 			case 'Q':
-				p[i] = new Qeen(pColor[i], pos[i]);
+				p[i] = new Queen(pColor[i], pos[i]);
 				break;
 			case 'B':
 				p[i] = new Bishop(pColor[i], pos[i]);
@@ -117,10 +155,13 @@ bool undoLastMove()
 		return false;
 	}
 
+	whiteTurn = whiteTurn == false ? true : false;
 	return true;
 }
 
-bool tryMove()
+
+
+void tryMove()
 {
 	Position from, to;
 
@@ -128,8 +169,8 @@ bool tryMove()
 	checkValidPos(from.x = _getche() - 'a' + 1);
 	checkValidPos(from.y = _getche() - '0');
 
-	if (board.GetPiece(from) == nullptr)
-		throw std::exception("Wrong coordinates");
+	if (board.GetPiece(from) == nullptr || board.GetPiece(from)->isWhite() != whiteTurn)
+		throw std::exception("Pick another piece");
 
 	std::cout << "->";
 
@@ -146,13 +187,19 @@ bool tryMove()
 
 	if (board.GetPiece(to) != nullptr)
 		str += (board.GetPiece(to)->GetColor() == PieceColor::white ? "w" : "b");
-
+	else
+		str += "Null";
 	str += " " + board.GetPiece(to)->GetType();
 
+	//try move piece
 	if (board.MovePiece(from, to)) {
 		lastMove.push(str);
-		return true;
+		board.Draw();
+		whiteTurn = whiteTurn == false ? true : false;
+		//return true;
 	}
+	else
+		throw std::exception("Wrong move");
 
-	return false;
+	//return false;
 }
