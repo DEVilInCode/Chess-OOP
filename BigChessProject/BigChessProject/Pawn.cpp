@@ -20,6 +20,11 @@ void Pawn::transformation()
 
 }
 
+void Pawn::setDoubleJump(bool doubleJump)
+{
+    this->doubleJumpAvailable = doubleJump;
+}
+
 bool Pawn::validMove(Position moveTo)
 {
     Position delta = moveTo - this->pos;
@@ -28,22 +33,23 @@ bool Pawn::validMove(Position moveTo)
         move2 = this->isWhite() ? 2 : -2;
 
     //move 1 cell
-    if (moveTo.y == this->pos.y + move1 && moveTo.x == pos.x && board.GetPiece(moveTo) == nullptr) {
+    if (moveTo.y == this->pos.y + move1 && moveTo.x == this->pos.x && board.GetPiece(moveTo) == nullptr) {
         this->doubleJumpAvailable = false;
         valid = true;
     }
 
     //move 2 cells
-    else if (this->doubleJumpAvailable == true && moveTo.y == this->pos.y + move2 && moveTo.x == pos.x
-        && board.GetPiece(moveTo) == nullptr && board.GetPiece(Position{pos.x, pos.y + move1}) == nullptr) {
+    else if (this->doubleJumpAvailable == true && moveTo.y == this->pos.y + move2 && moveTo.x == this->pos.x
+        && board.GetPiece(moveTo) == nullptr && board.GetPiece(Position{pos.x, pos.y + move1}) == nullptr)
+    {
         this->doubleJumpAvailable = false;
         valid = true;
     }
 
     //diagonal attack
-    else if (moveTo.y == pos.y + move1 && (moveTo.x == pos.x - 1 || moveTo.x == pos.x + 1)) {
+    else if (moveTo.y == this->pos.y + move1 && (moveTo.x == this->pos.x - 1 || moveTo.x == this->pos.x + 1)) {
 
-        if (board.GetPiece(moveTo) != nullptr && (board.GetPiece(moveTo)->GetColor() != this->color)) {
+        if (board.GetPiece(moveTo) != nullptr && board.GetPiece(moveTo)->GetColor() != this->GetColor()) {
             valid = true;
         }
     }

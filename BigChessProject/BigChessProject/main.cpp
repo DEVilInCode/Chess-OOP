@@ -5,14 +5,13 @@
 
 Board board;
 std::stack<std::string> lastMove;
-
 bool whiteTurn = true;
 
 int main()
 {
-	std::cout << "D - draw board\
-					\nM - move piece\
+	std::cout << "M - menu\
 					\nU - undo last move\
+					\nN - nobody wins(for perpetual check)\
 					\nS - save game\
 					\nL - load game\
 					\nE - exit\n";
@@ -21,15 +20,21 @@ int main()
 			rewind(stdin);
 			switch (_getch())
 			{
-			case 'd':
-			case 'D':
-				board.Draw();
+			case 'n':
+			case 'N':
+				std::cout << "Nobody wins" << std::endl;
+				exit(0);
 				break;
+
 			case 'm':
 			case 'M':
-				board.Draw();
-				std::cout << "Enter move(example: a2-a3):" << std::endl;
-				tryMove();
+				system("cls");
+				std::cout << "M - menu\
+					\nU - undo last move\
+					\nN - nobody wins(for perpetual check)\
+					\nS - save game\
+					\nL - load game\
+					\nE - exit\n";
 				break;
 
 			case 'u':
@@ -41,7 +46,6 @@ int main()
 			case 's':
 			case 'S':
 				save();
-				exit(0);
 				break;
 
 			case 'l':
@@ -54,20 +58,22 @@ int main()
 				exit(0);
 				break;
 
+			case 'd':
+			case 'D':
 			default:
-				system("cls");
-				std::cout << "D - draw board\
-					\nM - move piece\
-					\nU - undo last move\
-					\nS - save game\
-					\nL - load game\
-					\nE - exit\n";
+				do {
+					system("cls");
+					board.Draw();
+					std::cout << "Enter move(example: a2-a3):" << std::endl;
+					tryMove();
+				} while (true);
+
 				break;
 			}
 		}
 		catch (std::exception& ex)
 		{
-			std::cout << "Exception: " << ex.what() << std::endl;
+			std::cout << "\b\b\b\b\b\b" << ex.what() << std::endl;
 		}
 	}
 

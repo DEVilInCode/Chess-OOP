@@ -48,7 +48,6 @@ void Board::Draw()
 		diff = 1;
 	}
 
-	//for Black player
 	std::cout << "    a  b  c  d  e  f  g  h " << std::endl;
 	for (int row = rowS; row < 9 && row > 0; row += diff)
 	{
@@ -84,7 +83,7 @@ void Board::Draw()
 
 bool Board::MovePiece(Position moveFrom, Position moveTo)
 {
-	if (board.at(moveFrom) != nullptr) 
+	if (board.at(moveFrom) != nullptr)
 	{
 		if (board.at(moveFrom)->validMove(moveTo))
 		{
@@ -95,7 +94,6 @@ bool Board::MovePiece(Position moveFrom, Position moveTo)
 		}
 		return false;
 	}
-	std::cout << "moveFrom is null" << std::endl;
 	return false;
 }
 
@@ -110,11 +108,11 @@ void Board::InitializePieces()
 	for (int i = 1; i < 9; i++)
 	{
 		Position blackPawnPos = { i, 7 };
-		board.insert(std::pair<Position, BasePiece*>({ blackPawnPos.x, blackPawnPos.y }, new Pawn(PieceColor::black, blackPawnPos)));
+		board.insert(std::pair<Position, BasePiece*>(blackPawnPos, new Pawn(PieceColor::black, blackPawnPos)));
 
 
 		Position whitePawnPos = { i, 2 };
-		board.insert(std::pair<Position, BasePiece*>({ whitePawnPos.x, whitePawnPos.y }, new Pawn(PieceColor::white, whitePawnPos)));
+		board.insert(std::pair<Position, BasePiece*>(whitePawnPos, new Pawn(PieceColor::white, whitePawnPos)));
 
 		for (int j = 3; j < 7; j++)
 		{
@@ -125,6 +123,7 @@ void Board::InitializePieces()
 	//Kings
 	board.insert(std::pair<Position, BasePiece*>({ 4, 1 }, new King(PieceColor::white, {4, 1})));
 	board.insert(std::pair<Position, BasePiece*>({ 4, 8 }, new King(PieceColor::black, {4, 8})));
+
 
 	//Qeens
 	board.insert(std::pair<Position, BasePiece*>({ 5, 1 }, new Queen(PieceColor::white, {5, 1})));

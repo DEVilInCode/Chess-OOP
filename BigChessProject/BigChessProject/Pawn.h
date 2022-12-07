@@ -7,6 +7,7 @@ public:
 	virtual ~Pawn();
 
 	bool validMove(Position moveTo) override;
+	void setDoubleJump(bool);
 
 protected:
 	void transformation();
