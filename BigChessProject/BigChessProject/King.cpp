@@ -1,4 +1,4 @@
-#include <iostream>
+//#include <iostream>
 #include "King.h"
 #include "Board.h"
 
@@ -15,14 +15,13 @@ King::~King() {}
 
 bool King::inDanger()
 {
-	return notDangerCell(this->pos);
+	return !notDangerCell(this->pos);
 }
 
 bool King::notDangerCell(Position pos)
 {
 	bool res = true;
-	
-	Position current;
+
 	BasePiece* piece, * savePiece;
 
 	savePiece = board.GetPiece(pos);
@@ -68,7 +67,7 @@ bool King::notDangerCell(Position pos)
 			 p2 = { pos.x - 1, pos.y + pMov };
 	BasePiece* piece1, * piece2; 
 
-	std::cout << pos.x + 1 << pos.x - 1 << pos.y + pMov << std::endl;
+	//std::cout << pos.x + 1 << pos.x - 1 << pos.y + pMov << std::endl;
 	piece1 = pos.x + 1 < 9 && pos.y + pMov > 0 && pos.y + pMov < 9 ? board.GetPiece(p1) : nullptr;
 	piece2 = pos.x - 1 > 0 && pos.y + pMov > 0 && pos.y + pMov < 9 ? board.GetPiece(p2) : nullptr;
 
@@ -91,9 +90,12 @@ bool King::validMove(Position moveTo)
 	delta.y = abs(delta.y);
 
 	if(delta.y <= 1 && delta.x <= 1)
-		if((board.GetPiece(moveTo) == nullptr || board.GetPiece(moveTo)->GetColor() != this->GetColor())
+		if ((board.GetPiece(moveTo) == nullptr || board.GetPiece(moveTo)->GetColor() != this->GetColor())
 			&& notDangerCell(moveTo))
+		{
+
 			return true;
+		}
 
 	return false;
 }

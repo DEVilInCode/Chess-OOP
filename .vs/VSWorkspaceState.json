@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\BigChessProject",
+    "\\BigChessProject\\BigChessProject"
   ],
-  "SelectedNode": "\\BigChessProject.sln",
+  "SelectedNode": "\\BigChessProject\\BigChessProject\\Functions.cpp",
   "PreviewInSolutionExplorer": false
 }
