@@ -3,9 +3,12 @@
 
 class King :public BasePiece
 {
+	friend class Board;
 public:
 	King(PieceColor color, Position pos);
 	virtual ~King();
+
+	bool inDanger();
 
 	bool validMove(Position moveTo) override;
 private:

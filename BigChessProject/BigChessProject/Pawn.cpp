@@ -5,12 +5,12 @@
 extern Board board;
 extern std::stack<std::string> lastMove;
 
-Pawn::Pawn(PieceColor color, Position pos)
+Pawn::Pawn(PieceColor color, Position pos, bool doubleJump)
 {
 	this->color = color;
 	this->type = "P";//L'♙';
 	this->pos = pos;
-	this->doubleJumpAvailable = true;
+	this->doubleJumpAvailable = doubleJump;
 }
 
 Pawn::~Pawn() {}

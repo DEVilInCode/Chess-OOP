@@ -90,6 +90,11 @@ bool Board::MovePiece(Position moveFrom, Position moveTo)
 	return false;
 }
 
+void Board::SetPiece(Position pos, BasePiece* piece)
+{
+	board.at(pos) = piece;
+}
+
 void Board::InitializePieces()
 {
 	//Pawns

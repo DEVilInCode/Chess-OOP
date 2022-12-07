@@ -1,9 +1,11 @@
 #pragma once
 #include <map>
-#include "BasePiece.h"
+#include "Pieces.h"
 
 class Board
 {
+	friend bool undoLastMove();
+	friend bool King::notDangerCell(Position pos);
 public:
 	Board();
 	virtual ~Board();
@@ -14,7 +16,9 @@ public:
 	BasePiece* GetPiece(Position piecePos);
 
 protected:
+
 	std::map<Position, BasePiece*> board;
 	
+	void SetPiece(Position pos, BasePiece* piece);
 	void InitializePieces();
 };

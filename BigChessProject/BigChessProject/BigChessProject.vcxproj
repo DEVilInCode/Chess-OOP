@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Bishop.cpp" />
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Functions.cpp" />
     <ClCompile Include="King.cpp" />
     <ClCompile Include="Knight.cpp" />
     <ClCompile Include="Pawn.cpp" />
@@ -34,10 +35,12 @@
     <ClInclude Include="Bishop.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="ConsoleColor.h" />
+    <ClInclude Include="Functions.h" />
     <ClInclude Include="Includes.h" />
     <ClInclude Include="King.h" />
     <ClInclude Include="Knight.h" />
     <ClInclude Include="Pawn.h" />
+    <ClInclude Include="Pieces.h" />
     <ClInclude Include="Qeen.h" />
     <ClInclude Include="Rook.h" />
   </ItemGroup>

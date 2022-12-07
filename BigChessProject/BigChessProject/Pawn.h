@@ -3,7 +3,7 @@
 
 class Pawn: public BasePiece {
 public:
-	Pawn(PieceColor color, Position pos);
+	Pawn(PieceColor color, Position pos, bool doubleJump = true);
 	virtual ~Pawn();
 
 	bool validMove(Position moveTo) override;
