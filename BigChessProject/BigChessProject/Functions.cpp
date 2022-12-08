@@ -9,7 +9,7 @@ extern bool whiteTurn;
 
 const std::string location = "D:\\file.txt";
 
-void save()
+void Save()
 {
 	std::ofstream file(location);
 	std::string info;
@@ -38,16 +38,16 @@ void save()
 			if (p == nullptr)
 				file << "Null ";
 			else
-				file << (p->isWhite() ? "w" : "b") << " " << p->GetType() << " ";
+				file << (p->IsWhite() ? "w" : "b") << " " << p->GetType() << " ";
 		}
 		file << std::endl;
 	}
 
 	file.close();
-	load();
+	Load();
 }
 
-void load()
+void Load()
 {
 	std::ifstream file(location);
 
@@ -146,7 +146,7 @@ void load()
 	file.close();
 }
 
-bool undoLastMove()
+bool UndoLastMove()
 {
 	try {
 		if (lastMove.empty() == true)
@@ -158,7 +158,7 @@ bool undoLastMove()
 		strm >> moveFromX >> moveFromY >> pieceColor1 >> piece1 >> moveToX >> moveToY >> pieceColor2 >> piece2;
 		lastMove.pop();
 
-		Position pos[2] = { { std::stoi(moveFromX), std::stoi(moveFromY) },//From position
+		Position position[2] = { { std::stoi(moveFromX), std::stoi(moveFromY) },//From position
 							{ std::stoi(moveToX), std::stoi(moveToY) } };//To position
 
 		PieceColor pColor[2] = { pieceColor1 == "w" ? PieceColor::white : PieceColor::black,
@@ -171,33 +171,33 @@ bool undoLastMove()
 			switch (pStr[i][0])
 			{
 			case 'P':
-				if (pColor[i] == PieceColor::white && pos[i].y == 2 || //Double jump available
-					pColor[i] == PieceColor::black && pos[i].y == 6)
+				if (pColor[i] == PieceColor::white && position[i].y == 2 || //Double jump available
+					pColor[i] == PieceColor::black && position[i].y == 6)
 					dJump = true;
 
-				p[i] = new Pawn(pColor[i], pos[i], dJump);
+				p[i] = new Pawn(pColor[i], position[i], dJump);
 				break;
 			case 'Q':
-				p[i] = new Queen(pColor[i], pos[i]);
+				p[i] = new Queen(pColor[i], position[i]);
 				break;
 			case 'B':
-				p[i] = new Bishop(pColor[i], pos[i]);
+				p[i] = new Bishop(pColor[i], position[i]);
 				break;
 			case 'N':
-				p[i] = new Knight(pColor[i], pos[i]);
+				p[i] = new Knight(pColor[i], position[i]);
 				break;
 			case 'R':
-				p[i] = new Rook(pColor[i], pos[i]);
+				p[i] = new Rook(pColor[i], position[i]);
 				break;
 			case 'K':
-				p[i] = new King(pColor[i], pos[i]);
+				p[i] = new King(pColor[i], position[i]);
 				break;
 			default:
 				p[i] = nullptr;
 				break;
 			}
 
-			board.SetPiece(pos[i], p[i]);
+			board.SetPiece(position[i], p[i]);
 		}
 	}
 	catch (std::exception& ex)
@@ -210,125 +210,83 @@ bool undoLastMove()
 	return true;
 }
 
-void checkValidPos(int num)
+bool ValidPosition(Position position)
 {
-	if (num < 1 || num > 8) {
-		throw std::exception("Invalid position");
+	if (position.x < 1 || position.y < 1 || position.x > 8 || position.y > 8)
+	{
+		std::cout << "\b\b";
+		return false;
 	}
-
+	return true;
 }
 
-void tryMove()
+void EnterPosition(Position& position)
+{
+	do {
+		rewind(stdin);
+		position.x = _getche() - 'a' + 1;
+		position.y = _getche() - '0';
+	} while(!ValidPosition(position));
+}
+
+std::string MoveToString(Position from, Position to)
+{
+	std::string string;
+	string = std::to_string(from.x) + " " + std::to_string(from.y) + " " + (board.GetPiece(from)->GetColor() == PieceColor::white ? "w" : "b")
+		+ " " + board.GetPiece(from)->GetType() + " " + std::to_string(to.x) + " " + std::to_string(to.y) + " ";
+
+	if (board.GetPiece(to) != nullptr)
+		string += (board.GetPiece(to)->GetColor() == PieceColor::white ? "w" : "b");
+	else
+		string += "Null";
+	string += " " + board.GetPiece(to)->GetType();
+
+	return string;
+}
+
+void TryMove()
 {
 	Position from, to;
 
 	//get from position
-	rewind(stdin);
-	checkValidPos(from.x = _getche() - 'a' + 1);
-	checkValidPos(from.y = _getche() - '0');
+	EnterPosition(from);
 
-	if (board.GetPiece(from) == nullptr || board.GetPiece(from)->isWhite() != whiteTurn)
+	if (board.GetPiece(from) == nullptr || board.GetPiece(from)->IsWhite() != whiteTurn)
 		throw std::exception("Pick another piece");
 
 	std::cout << "->";
 
 	//get to position
-	checkValidPos(to.x = _getche() - 'a' + 1);
-	checkValidPos(to.y = _getche() - '0');
-	std::cout << std::endl;
+	EnterPosition(to);
 
-
-	//save last move
-	std::string str;
-	str = std::to_string(from.x) + " " + std::to_string(from.y) + " " + (board.GetPiece(from)->GetColor() == PieceColor::white ? "w" : "b")
-		+ " " + board.GetPiece(from)->GetType() + " " + std::to_string(to.x) + " " + std::to_string(to.y) + " ";
-
-	if (board.GetPiece(to) != nullptr)
-		str += (board.GetPiece(to)->GetColor() == PieceColor::white ? "w" : "b");
-	else
-		str += "Null";
-	str += " " + board.GetPiece(to)->GetType();
+	//save move
+	lastMove.push(MoveToString(from, to));
 
 	//try move piece
-	/*std::cout << (board.GetPiece(from)->validMove(to) ? "true" : "false");
-	std::cout << from.x << from.y << to.x << to.y << std::endl;
-	system("pause");*/
 	if (board.MovePiece(from, to)) {
-		lastMove.push(str);
-		Position king, cur;
-		bool white = whiteTurn ? true : false;
-
-		King* k;
 
 		//check
-		for (int i = 1; i < 9; i++)
-			for (int j = 1; j < 9; j++) {
-				cur = Position{ i,j };
-				if (board.GetPiece(cur)->GetType() == "K" && board.GetPiece(cur)->isWhite() == white)
-					king = cur;
-			}
-		k = dynamic_cast<King*>(board.GetPiece(king));
-		if (k->inDanger()) {
-			
-			undoLastMove();
-		}
+		if (board.GetKing(whiteTurn ? PieceColor::white : PieceColor::black)->inDanger())
+			UndoLastMove();
+		board.Draw();
 
-		
 		//check mate
-		for (int i = 1; i < 9; i++)
-			for (int j = 1; j < 9; j++) {
-				cur = Position{ i,j };
-				if (board.GetPiece(cur)->GetType() == "K" && board.GetPiece(cur)->isWhite() != white)
-					king = cur;
-			}
-		k = dynamic_cast<King*>(board.GetPiece(king));
-
-		bool checkMate = true;
-		for (int i = 1; i < 9; i++)
-		{
-			for (int j = 1; j < 9; j++)
-			{
-				Position cur = Position{ i,j };
-				BasePiece* p = board.GetPiece(cur);
-				if(p != nullptr && p->isWhite() != whiteTurn)
-					for (int x = 1; x < 9; x++)
-					{
-						for (int y = 1; y < 9; y++)
-						{
-							BasePiece* cp = board.GetPiece(Position{ x,y });
-							if (cp != k && p->validMove(Position{ x,y }))
-							{
-								if (p->GetType() == "P") {
-									Pawn* pawn = dynamic_cast<Pawn*>(p);
-									pawn->setDoubleJump(true);
-								}
-
-								//board.SetPiece(cur, nullptr);
-								//board.SetPiece(Position{ x,y }, p);
-								if (!k->inDanger())
-								{
-									checkMate = false;
-								}
-								//board.SetPiece(cur, p);
-								//board.SetPiece(Position{ x,y }, cp);
-								
-							}	
-						}
-					}
-			}
-		}
-		if (checkMate)
+		if (board.IsCheckmate(whiteTurn))
 		{
 			std::cout << "Check mate! " << (whiteTurn ? "White win!" : "Black win!") << std::endl;
 			exit(0);
 		}
+		board.Draw();
+
 		whiteTurn = whiteTurn == false ? true : false;
 		board.Draw();
 		return;
-
 	}
 	else
+	{
+		lastMove.pop();
 		throw std::exception("Wrong move");
+	}
 
 }
 

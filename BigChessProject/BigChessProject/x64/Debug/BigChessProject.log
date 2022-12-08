@@ -1,10 +1,2 @@
-﻿  Bishop.cpp
-  Board.cpp
-  Functions.cpp
-  King.cpp
-  Knight.cpp
-  Pawn.cpp
-  Rook.cpp
-  main.cpp
-  Generating Code...
-  BigChessProject.vcxproj -> D:\repos\Curse4\BigChessProject\x64\Debug\BigChessProject.exe
+﻿  Functions.cpp
+  BigChessProject.vcxproj -> C:\Users\DEVil\source\repos\Curse4\BigChessProject\x64\Debug\BigChessProject.exe

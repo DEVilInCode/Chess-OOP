@@ -4,7 +4,7 @@
 class Knight :public BasePiece
 {
 public:
-	Knight(PieceColor color, Position pos);
+	Knight(PieceColor color, Position position);
 	virtual ~Knight();
 
 	bool validMove(Position moveTo) override;

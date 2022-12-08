@@ -3,18 +3,18 @@
 
 extern Board board;
 
-Rook::Rook(PieceColor color, Position pos)
+Rook::Rook(PieceColor color, Position position)
 {
 	this->color = color;
 	this->type = "R";
-	this->pos = pos;
+	this->position = position;
 }
 
 Rook::~Rook() {}
 
 bool Rook::validMove(Position moveTo)
 {
-	Position current, delta = moveTo - this->pos;
+	Position current, delta = moveTo - this->position;
 	
 	//if moveTo pos change more than one coordinate
 	if (delta.x && delta.y)
@@ -27,8 +27,8 @@ bool Rook::validMove(Position moveTo)
 	//if in row othe pieces
 	int end = abs(delta.x + delta.y);
 
-	current.x = delta.x < 0 ? this->pos.x * -1 : this->pos.x;
-	current.y = delta.y < 0 ? this->pos.y * -1 : this->pos.y;
+	current.x = delta.x < 0 ? this->position.x * -1 : this->position.x;
+	current.y = delta.y < 0 ? this->position.y * -1 : this->position.y;
 
 	for (int i = 1; i < end; i++)
 	{

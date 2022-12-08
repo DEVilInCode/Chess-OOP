@@ -3,17 +3,17 @@
 
 extern Board board;
 
-Bishop::Bishop(PieceColor color, Position pos)
+Bishop::Bishop(PieceColor color, Position position)
 {
 	this->color = color;
 	this->type = "B";
-	this->pos = pos;
+	this->position = position;
 }
 Bishop::~Bishop(){}
 
 bool Bishop::validMove(Position moveTo)
 {
-	Position current, delta = moveTo - this->pos;
+	Position current, delta = moveTo - this->position;
 
 	//if moveTo pos change coordinates in diff values
 	if (abs(delta.x) != abs(delta.y))
@@ -24,8 +24,8 @@ bool Bishop::validMove(Position moveTo)
 		return false;
 	
 	//If cells in diagonal have pieces
-	current.x = delta.x < 0 ? this->pos.x * -1 : this->pos.x;
-	current.y = delta.y < 0 ? this->pos.y * -1 : this->pos.y;
+	current.x = delta.x < 0 ? this->position.x * -1 : this->position.x;
+	current.y = delta.y < 0 ? this->position.y * -1 : this->position.y;
 
 	for (int i = 1; i < abs(delta.x); i++)
 	{

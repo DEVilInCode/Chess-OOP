@@ -13,6 +13,7 @@ typedef struct Position {
 	int x, y;
 	friend bool operator<(const Position& p1, const Position& p2);
 	friend Position operator-(const Position& p1, const Position& p2);
+	friend std::ostream& operator<<(std::ostream&, const Position& p);
 }Position;
 
 class BasePiece{
@@ -22,12 +23,13 @@ public:
 
 	PieceColor GetColor();
 	std::string GetType();
-	void SetPosition(Position pos);
-	bool isWhite();
+	void SetPosition(Position position);
+	bool IsWhite();
+
 	virtual bool validMove(Position moveTo) = 0;
 
 protected:
 	std::string type;
 	PieceColor color;
-	Position pos;
+	Position position;
 };

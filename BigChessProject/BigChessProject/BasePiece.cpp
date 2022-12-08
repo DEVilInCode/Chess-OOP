@@ -14,11 +14,18 @@ Position operator-(const Position& p1, const Position& p2)
 	return Position{ p1.x - p2.x, p1.y - p2.y };
 }
 
+std::ostream& operator<<(std::ostream& os, const Position& p)
+{
+	os << "x: " << p.x << " y: " << p.y;
+	return os;
+}
+
 BasePiece::BasePiece() {
 	this->type = " ";
 }
 
 BasePiece::~BasePiece() {}
+
 
 PieceColor BasePiece::GetColor()
 {
@@ -33,12 +40,12 @@ std::string BasePiece::GetType()
 		return " ";
 }
 
-bool BasePiece::isWhite()
+bool BasePiece::IsWhite()
 {
 	return this->color == PieceColor::white;
 }
 
-void BasePiece::SetPosition(Position pos)
+void BasePiece::SetPosition(Position position)
 {
-	this->pos = pos;
+	this->position = position;
 }
