@@ -1,14 +1,11 @@
 #include "Includes.h"
+#include "Functions.h"
 #include "ConsoleColor.h"
 #include "Board.h"
-#include "King.h"
-#include "Queen.h"
-#include "Pawn.h"
-#include "Bishop.h"
-#include "Knight.h"
-#include "Rook.h"
+#include "Pieces.h"
 
 extern bool whiteTurn;
+extern std::stack<std::string> lastMove;
 
 Board::Board()
 {
@@ -81,6 +78,280 @@ void Board::Draw()
 	std::cout << "    a  b  c  d  e  f  g  h \n\n";
 }
 
+
+void Board::TryMove()
+{
+	Position from, to;
+
+	//get from position
+	EnterPosition(from);
+
+	if (GetPiece(from) == nullptr || GetPiece(from)->IsWhite() != whiteTurn)
+		throw std::exception("Pick another piece");
+
+	std::cout << "->";
+
+	//get to position
+	EnterPosition(to);
+	std::cout << std::endl;
+
+	//save move
+	lastMove.push(MoveToString(from, to));
+
+	//try move piece
+	if (MovePiece(from, to)) {
+
+		//for Pawns
+		if (GetPiece(to)->GetType() == "P")
+		{
+			Pawn* pawn = dynamic_cast<Pawn*>(GetPiece(to));
+			pawn->setDoubleJump(false);
+			if (to.y == 1 || to.y == 8)
+				pawn->transformation();
+		}
+
+		//check
+		if (GetKing(whiteTurn ? PieceColor::white : PieceColor::black)->inDanger())
+		{
+			std::cout << "Change your move, king will be in danger!" << std::endl;
+			UndoLastMove();
+		}
+
+		//check mate
+		if (IsCheckmate(whiteTurn))
+		{
+			Draw();
+			std::cout << "Check mate! " << (whiteTurn ? "White win!" : "Black win!") << std::endl;
+			exit(0);
+		}
+
+		Draw();
+		whiteTurn = whiteTurn == false ? true : false;
+		return;
+	}
+	else
+	{
+		lastMove.pop();
+		throw std::exception("Wrong move");
+	}
+
+}
+
+bool Board::UndoLastMove()
+{
+	try {
+		if (lastMove.empty() == true)
+			throw std::exception("No one move was");
+
+		int moveFromX, moveFromY, moveToX, moveToY;
+		std::string pieceColor1, piece1, piece2, pieceColor2;
+		std::stringstream strm;
+		strm << lastMove.top();
+		strm >> moveFromX >> moveFromY >> pieceColor1 >> piece1 >> moveToX >> moveToY >> pieceColor2 >> piece2;
+		lastMove.pop();
+
+		Position position[2] = { { moveFromX, moveFromY },//From position
+							{ moveToX, moveToY } };//To position
+
+		PieceColor pColor[2] = { pieceColor1 == "w" ? PieceColor::white : PieceColor::black,
+								 pieceColor2 == "w" ? PieceColor::white : PieceColor::black };
+
+		std::string pStr[2] = { piece1, piece2 };
+		BasePiece* p[2];
+
+		for (int i = 0; i < 2; i++) {
+			bool dJump = false;
+			switch (pStr[i][0])
+			{
+			case 'P':
+				if (pColor[i] == PieceColor::white && position[i].y == 2 || //Double jump available
+					pColor[i] == PieceColor::black && position[i].y == 7)
+					dJump = true;
+
+				if (pieceColor2 == "Null" && abs(position[0].x - position[1].x) == 1 && abs(position[0].y - position[1].y) == 1)
+				{
+					pColor[0] == PieceColor::white ? SetPiece(Position{ position[1].x, position[1].y - 1 }, new Pawn(PieceColor::black, Position{ position[1].x, position[1].y - 1 }, false)):
+						SetPiece(Position{ position[1].x, position[1].y + 1 }, new Pawn(PieceColor::white, Position{ position[1].x, position[1].y + 1 }, false));
+				}
+
+				p[i] = new Pawn(pColor[i], position[i], dJump);
+				break;
+			case 'Q':
+				p[i] = new Queen(pColor[i], position[i]);
+				break;
+			case 'B':
+				p[i] = new Bishop(pColor[i], position[i]);
+				break;
+			case 'N':
+				p[i] = new Knight(pColor[i], position[i]);
+				break;
+			case 'R':
+				p[i] = new Rook(pColor[i], position[i]);
+				break;
+			case 'K':
+				p[i] = new King(pColor[i], position[i]);
+				break;
+			default:
+				p[i] = nullptr;
+				break;
+			}
+
+			SetPiece(position[i], p[i]);
+		}
+	}
+	catch (std::exception& ex)
+	{
+		std::cout << ex.what() << std::endl;
+		return false;
+	}
+
+	whiteTurn = whiteTurn == false ? true : false;
+	return true;
+}
+
+
+
+void Board::Save()
+{
+	const std::string location = "D:\\file.txt";
+
+	std::ofstream file(location);
+	std::string info;
+
+	file << lastMove.size() << std::endl;
+	while (!lastMove.empty())
+	{
+		std::stringstream strm;
+		strm << lastMove.top();
+		lastMove.pop();
+
+		strm >> info;
+		while (strm)
+		{
+			file << info << " ";
+			strm >> info;
+		}
+		file << std::endl;
+	}
+
+	for (int i = 1; i < 9; i++)
+	{
+		for (int j = 1; j < 9; j++)
+		{
+			BasePiece* p = GetPiece(Position{ i, j });
+			if (p == nullptr)
+				file << "Null ";
+			else
+				file << (p->IsWhite() ? "w" : "b") << " " << p->GetType() << " ";
+		}
+		file << std::endl;
+	}
+
+	file.close();
+	Load();
+}
+
+void Board::Load()
+{
+	const std::string location = "D:\\file.txt";
+
+	std::ifstream file(location);
+
+	if (!file.is_open())
+		throw std::exception("Can't open file");
+
+	while (!lastMove.empty())
+		lastMove.pop();
+
+	int stackSize;
+	std::stringstream strm;
+	std::string str, tmp;
+	std::getline(file, tmp);
+	stackSize = std::stoi(tmp);
+
+	for (int i = 0; i < stackSize; i++) {
+		std::getline(file, tmp);
+		str = tmp + str;
+	}
+
+	strm.clear();
+	strm << str;
+
+	std::string fromX, fromY, toX, toY, pColor1, piece1, pColor2, piece2;
+	for (int i = 0; i < stackSize && strm; i++)
+	{
+		strm >> fromX >> fromY >> pColor1 >> piece1 >> toX >> toY >> pColor2;
+
+		tmp = fromX + " " + fromY + " " + pColor1 + " " + piece1 + " " + toX + " " + toY + " " + pColor2 + " ";
+		if (pColor2 != "Null") {
+			strm >> piece2;
+			lastMove.push(tmp + piece2);
+		}
+		else
+			lastMove.push(tmp);
+	}
+	if (pColor1 == "b")
+		whiteTurn = true;
+	else if (pColor1 == "w")
+		whiteTurn = false;
+
+
+	std::string color,
+		piece;
+	for (int i = 1; i < 9; i++)
+	{
+		std::stringstream stream;
+		std::getline(file, tmp);
+		stream << tmp;
+
+		for (int j = 1; stream && j < 9; j++)
+		{
+			bool dJump = false;
+			Position current = Position{ i,j };
+			stream >> color;
+			if (color == "Null")
+			{
+				SetPiece(current, nullptr);
+			}
+			else {
+				PieceColor pieceColor = color == "w" ? PieceColor::white : PieceColor::black;
+				stream >> piece;
+				switch (piece[0])
+				{
+				case 'P':
+					if (pieceColor == PieceColor::white && j == 2 || //Double jump available
+						pieceColor == PieceColor::black && j == 6)
+						dJump = true;
+
+					SetPiece(current, new Pawn(pieceColor, current, dJump));
+					break;
+				case 'Q':
+					SetPiece(current, new Queen(pieceColor, current));
+					break;
+				case 'B':
+					SetPiece(current, new Bishop(pieceColor, current));
+					break;
+				case 'N':
+					SetPiece(current, new Knight(pieceColor, current));
+					break;
+				case 'R':
+					SetPiece(current, new Rook(pieceColor, current));
+					break;
+				case 'K':
+					SetPiece(current, new King(pieceColor, current));
+					break;
+				default:
+					SetPiece(current, nullptr);
+					break;
+				}
+			}
+		}
+
+	}
+
+	file.close();
+}
+
 bool Board::MovePiece(Position moveFrom, Position moveTo)
 {
 	if (GetPiece(moveFrom) != nullptr)
@@ -95,6 +366,24 @@ bool Board::MovePiece(Position moveFrom, Position moveTo)
 		return false;
 	}
 	return false;
+}
+
+King* Board::GetKing(PieceColor kingColor)
+{
+	Position currentPosition, kingPosition;
+	for (int i = 1; i < 9; i++) {
+		for (int j = 1; j < 9; j++) {
+
+			currentPosition = Position{ i,j };
+			if (GetPiece(currentPosition)->GetType() == "K" && GetPiece(currentPosition)->GetColor() == kingColor)
+			{
+				kingPosition = currentPosition;
+				return dynamic_cast<King*>(GetPiece(kingPosition));
+			}
+		}
+	}
+	std::cout << "KING IS NOT DETECTED!!!" << std::endl;
+	return nullptr;
 }
 
 bool Board::IsCheckmate(bool whiteTurn)
@@ -137,34 +426,6 @@ bool Board::IsCheckmate(bool whiteTurn)
 		}
 	}
 	return isCheckmate;
-}
-
-King* Board::GetKing(PieceColor kingColor)
-{
-	Position currentPosition, kingPosition;
-	for (int i = 1; i < 9; i++) {
-		for (int j = 1; j < 9; j++) {
-
-			currentPosition = Position{ i,j };
-			if (GetPiece(currentPosition)->GetType() == "K" && GetPiece(currentPosition)->GetColor() == kingColor)
-			{
-				kingPosition = currentPosition;
-				return dynamic_cast<King*>(GetPiece(kingPosition));
-			}
-		}
-	}
-	std::cout << "KING IS NOT DETECTED!!!" << std::endl;
-	return nullptr;
-}
-
-void Board::SetPiece(Position position, BasePiece* piece)
-{
-	board.at(position) = piece;
-}
-
-BasePiece* Board::GetPiece(Position position)
-{
-	return this->board.at(position);
 }
 
 void Board::InitializePieces()

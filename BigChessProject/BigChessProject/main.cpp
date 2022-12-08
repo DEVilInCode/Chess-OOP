@@ -39,18 +39,18 @@ int main()
 
 			case 'u':
 			case 'U':
-				if(UndoLastMove())
+				if(board.UndoLastMove())
 					board.Draw();
 				break;
 
 			case 's':
 			case 'S':
-				Save();
+				board.Save();
 				break;
 
 			case 'l':
 			case 'L':
-				Load();
+				board.Load();
 				break;
 
 			case 'e':
@@ -65,7 +65,7 @@ int main()
 				system("cls");
 				board.Draw();
 				std::cout << "Enter move(example: a2-a3):" << std::endl;
-				TryMove();
+				board.TryMove();
 
 				break;
 			}

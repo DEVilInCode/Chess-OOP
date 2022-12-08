@@ -4,24 +4,35 @@
 
 class Board
 {
-	friend bool UndoLastMove();
-	friend void Load();
-	friend void TryMove();
 	friend class King;
+	friend bool Pawn::validMove(Position);
+	friend void Pawn::transformation();
 public:
 	Board();
 	virtual ~Board();
 
 	void Draw();
-	bool MovePiece(Position moveFrom, Position moveTo);
-	BasePiece* GetPiece(Position piecePosition);
+	void TryMove();
+	bool UndoLastMove();
+	void Save();
+	void Load();
+	
+	inline BasePiece* GetPiece(Position piecePosition)
+	{
+		return this->board.at(piecePosition);
+	}
 
 protected:
 	std::map<Position, BasePiece*> board;
 
 	bool IsCheckmate(bool turn);
+	bool MovePiece(Position moveFrom, Position moveTo);
 	King* GetKing(PieceColor);
 
-	void SetPiece(Position position, BasePiece* piece);
 	void InitializePieces();
+
+	inline void SetPiece(Position position, BasePiece* piece)
+	{
+		board.at(position) = piece;
+	}
 };

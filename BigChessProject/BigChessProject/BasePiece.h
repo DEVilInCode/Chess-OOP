@@ -1,5 +1,6 @@
 #pragma once
-#include <string>
+#include <string.h>
+#include "Position.h"
 
 class Board;
 
@@ -8,13 +9,6 @@ enum class PieceColor
 	black,
 	white
 }; 
-
-typedef struct Position {
-	int x, y;
-	friend bool operator<(const Position& p1, const Position& p2);
-	friend Position operator-(const Position& p1, const Position& p2);
-	friend std::ostream& operator<<(std::ostream&, const Position& p);
-}Position;
 
 class BasePiece{
 public:
