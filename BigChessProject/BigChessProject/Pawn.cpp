@@ -5,11 +5,11 @@
 extern Board board;
 extern std::stack<std::string> lastMove;
 
-Pawn::Pawn(PieceColor color, Position pos, bool doubleJump)
+Pawn::Pawn(PieceColor color, Position position, bool doubleJump)
 {
 	this->color = color;
 	this->type = "P";
-	this->pos = pos;
+	this->position = position;
 	this->doubleJumpAvailable = doubleJump;
 }
 
@@ -27,27 +27,27 @@ void Pawn::setDoubleJump(bool doubleJump)
 
 bool Pawn::validMove(Position moveTo)
 {
-    Position delta = moveTo - this->pos;
+    Position delta = moveTo - this->position;
     bool valid = false;
-    int move1 = this->isWhite() ? 1 : -1,
-        move2 = this->isWhite() ? 2 : -2;
+    int move1 = this->IsWhite() ? 1 : -1,
+        move2 = this->IsWhite() ? 2 : -2;
 
     //move 1 cell
-    if (moveTo.y == this->pos.y + move1 && moveTo.x == this->pos.x && board.GetPiece(moveTo) == nullptr) {
-        this->doubleJumpAvailable = false;
+    if (moveTo.y == this->position.y + move1 && moveTo.x == this->position.x && board.GetPiece(moveTo) == nullptr) {
+       //this->doubleJumpAvailable = false;
         valid = true;
     }
 
     //move 2 cells
-    else if (this->doubleJumpAvailable == true && moveTo.y == this->pos.y + move2 && moveTo.x == this->pos.x
-        && board.GetPiece(moveTo) == nullptr && board.GetPiece(Position{pos.x, pos.y + move1}) == nullptr)
+    else if (this->doubleJumpAvailable == true && moveTo.y == this->position.y + move2 && moveTo.x == this->position.x
+        && board.GetPiece(moveTo) == nullptr && board.GetPiece(Position{position.x, position.y + move1}) == nullptr)
     {
-        this->doubleJumpAvailable = false;
+        //this->doubleJumpAvailable = false;
         valid = true;
     }
 
     //diagonal attack
-    else if (moveTo.y == this->pos.y + move1 && (moveTo.x == this->pos.x - 1 || moveTo.x == this->pos.x + 1)) {
+    else if (moveTo.y == this->position.y + move1 && (moveTo.x == this->position.x - 1 || moveTo.x == this->position.x + 1)) {
 
         if (board.GetPiece(moveTo) != nullptr && board.GetPiece(moveTo)->GetColor() != this->GetColor()) {
             valid = true;

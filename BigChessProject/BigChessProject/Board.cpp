@@ -58,7 +58,7 @@ void Board::Draw()
 				current = DarkGray;
 			else
 				current = Black;
-			BasePiece* currentPiece = board.at(Position{ column, row });
+			BasePiece* currentPiece = GetPiece(Position{ column, row });
 			if (currentPiece->GetType() == " ")
 			{
 				SetColor(White, current);
@@ -83,13 +83,13 @@ void Board::Draw()
 
 bool Board::MovePiece(Position moveFrom, Position moveTo)
 {
-	if (board.at(moveFrom) != nullptr)
+	if (GetPiece(moveFrom) != nullptr)
 	{
-		if (board.at(moveFrom)->validMove(moveTo))
+		if (GetPiece(moveFrom)->validMove(moveTo))
 		{
-			board[moveTo] = board.at(moveFrom);
-			board[moveTo]->SetPosition(moveTo);
-			board[moveFrom] = nullptr;
+			SetPiece(moveTo, GetPiece(moveFrom));
+			GetPiece(moveTo)->SetPosition(moveTo);
+			SetPiece(moveFrom, nullptr);
 			return true;
 		}
 		return false;
@@ -97,9 +97,74 @@ bool Board::MovePiece(Position moveFrom, Position moveTo)
 	return false;
 }
 
-void Board::SetPiece(Position pos, BasePiece* piece)
+bool Board::IsCheckmate(bool whiteTurn)
 {
-	board.at(pos) = piece;
+	King* king = GetKing(whiteTurn ? PieceColor::black : PieceColor::white);
+	Position currentPosition;
+	BasePiece* currentPiece;
+	bool isCheckmate = true;
+	for (int i = 1; i < 9; i++)
+	{
+		for (int j = 1; j < 9; j++)
+		{
+			currentPosition = Position{ i,j };
+			currentPiece = GetPiece(currentPosition);
+
+			if (currentPiece != nullptr && currentPiece->IsWhite() != whiteTurn)
+				for (int x = 1; x < 9; x++)
+				{
+					for (int y = 1; y < 9; y++)
+					{
+						BasePiece* savePiece = GetPiece(Position{ x,y });
+						if (savePiece != king && currentPiece->validMove(Position{ x,y }))
+						{
+							SetPiece(currentPosition, nullptr);
+							currentPiece->SetPosition(Position{ x,y });
+							SetPiece(Position{ x,y }, currentPiece);
+
+							if (!king->inDanger())
+								isCheckmate = false;
+
+							SetPiece(currentPosition, currentPiece);
+							currentPiece->SetPosition(currentPosition);
+							SetPiece(Position{ x,y }, savePiece);
+
+							if (!isCheckmate)
+								return isCheckmate;
+						}
+					}
+				}
+		}
+	}
+	return isCheckmate;
+}
+
+King* Board::GetKing(PieceColor kingColor)
+{
+	Position currentPosition, kingPosition;
+	for (int i = 1; i < 9; i++) {
+		for (int j = 1; j < 9; j++) {
+
+			currentPosition = Position{ i,j };
+			if (GetPiece(currentPosition)->GetType() == "K" && GetPiece(currentPosition)->GetColor() == kingColor)
+			{
+				kingPosition = currentPosition;
+				return dynamic_cast<King*>(GetPiece(kingPosition));
+			}
+		}
+	}
+	std::cout << "KING IS NOT DETECTED!!!" << std::endl;
+	return nullptr;
+}
+
+void Board::SetPiece(Position position, BasePiece* piece)
+{
+	board.at(position) = piece;
+}
+
+BasePiece* Board::GetPiece(Position position)
+{
+	return this->board.at(position);
 }
 
 void Board::InitializePieces()
@@ -149,9 +214,4 @@ void Board::InitializePieces()
 
 	board.insert(std::pair<Position, BasePiece*>({ 1, 8 }, new Rook(PieceColor::black, { 1,8 })));
 	board.insert(std::pair<Position, BasePiece*>({ 8, 8 }, new Rook(PieceColor::black, { 8,8 })));
-}
-
-BasePiece* Board::GetPiece(Position pos)
-{
-	return this->board.at(pos);
 }

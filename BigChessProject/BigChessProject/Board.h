@@ -4,9 +4,9 @@
 
 class Board
 {
-	friend bool undoLastMove();
-	friend void load();
-	friend void tryMove();
+	friend bool UndoLastMove();
+	friend void Load();
+	friend void TryMove();
 	friend class King;
 public:
 	Board();
@@ -14,11 +14,14 @@ public:
 
 	void Draw();
 	bool MovePiece(Position moveFrom, Position moveTo);
-	BasePiece* GetPiece(Position piecePos);
+	BasePiece* GetPiece(Position piecePosition);
 
 protected:
 	std::map<Position, BasePiece*> board;
 
-	void SetPiece(Position pos, BasePiece* piece);
+	bool IsCheckmate(bool turn);
+	King* GetKing(PieceColor);
+
+	void SetPiece(Position position, BasePiece* piece);
 	void InitializePieces();
 };

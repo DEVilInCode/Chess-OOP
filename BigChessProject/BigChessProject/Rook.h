@@ -4,7 +4,7 @@
 class Rook :virtual public BasePiece
 {
 public:
-	Rook(PieceColor color, Position pos);
+	Rook(PieceColor color, Position position);
 	virtual ~Rook();
 
 	bool validMove(Position moveTo) override;

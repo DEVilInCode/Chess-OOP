@@ -3,18 +3,18 @@
 
 extern Board board;
 
-Knight::Knight(PieceColor color, Position pos)
+Knight::Knight(PieceColor color, Position position)
 {
 	this->color = color;
 	this->type = "N";
-	this->pos = pos;
+	this->position = position;
 }
 
 Knight::~Knight() {}
 
 bool Knight::validMove(Position moveTo)
 {
-	Position delta = moveTo - this->pos;
+	Position delta = moveTo - this->position;
 	delta.x = abs(delta.x);
 	delta.y = abs(delta.y);
 	if ((delta.x == 2 && delta.y == 1) || (delta.x == 1 && delta.y == 2))

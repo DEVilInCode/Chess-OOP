@@ -2,11 +2,11 @@
 #include "Bishop.h"
 #include "Rook.h"
 
-Queen::Queen(PieceColor color, Position pos):Bishop(color, pos), Rook(color, pos)
+Queen::Queen(PieceColor color, Position position):Bishop(color, position), Rook(color, position)
 {
 	this->color = color;
 	this->type = "Q";
-	this->pos = pos;
+	this->position = position;
 }
 
 Queen::~Queen() {}
