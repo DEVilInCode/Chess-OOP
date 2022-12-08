@@ -258,6 +258,7 @@ void TryMove()
 
 	//get to position
 	EnterPosition(to);
+	std::cout << std::endl;
 
 	//save move
 	lastMove.push(MoveToString(from, to));
@@ -265,10 +266,18 @@ void TryMove()
 	//try move piece
 	if (board.MovePiece(from, to)) {
 
+		//for Pawns
+		if (board.GetPiece(to)->GetType() == "P")
+		{
+			dynamic_cast<Pawn*>(board.GetPiece(to))->setDoubleJump(false);
+		}
+
 		//check
 		if (board.GetKing(whiteTurn ? PieceColor::white : PieceColor::black)->inDanger())
+		{
+			std::cout << "Change your move, king will be in danger!" << std::endl;
 			UndoLastMove();
-		board.Draw();
+		}
 
 		//check mate
 		if (board.IsCheckmate(whiteTurn))
@@ -276,10 +285,9 @@ void TryMove()
 			std::cout << "Check mate! " << (whiteTurn ? "White win!" : "Black win!") << std::endl;
 			exit(0);
 		}
-		board.Draw();
 
-		whiteTurn = whiteTurn == false ? true : false;
 		board.Draw();
+		whiteTurn = whiteTurn == false ? true : false;
 		return;
 	}
 	else

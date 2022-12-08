@@ -34,7 +34,7 @@ bool Pawn::validMove(Position moveTo)
 
     //move 1 cell
     if (moveTo.y == this->position.y + move1 && moveTo.x == this->position.x && board.GetPiece(moveTo) == nullptr) {
-        this->doubleJumpAvailable = false;
+       //this->doubleJumpAvailable = false;
         valid = true;
     }
 
@@ -42,7 +42,7 @@ bool Pawn::validMove(Position moveTo)
     else if (this->doubleJumpAvailable == true && moveTo.y == this->position.y + move2 && moveTo.x == this->position.x
         && board.GetPiece(moveTo) == nullptr && board.GetPiece(Position{position.x, position.y + move1}) == nullptr)
     {
-        this->doubleJumpAvailable = false;
+        //this->doubleJumpAvailable = false;
         valid = true;
     }
 

@@ -22,7 +22,7 @@ int main()
 			{
 			case 'n':
 			case 'N':
-				std::cout << "Nobody wins" << std::endl;
+				std::cout << "Nobody wins or pat" << std::endl;
 				exit(0);
 				break;
 
@@ -61,19 +61,18 @@ int main()
 			case 'd':
 			case 'D':
 			default:
-				do {
-					system("cls");
-					board.Draw();
-					std::cout << "Enter move(example: a2-a3):" << std::endl;
-					TryMove();
-				} while (true);
+				
+				system("cls");
+				board.Draw();
+				std::cout << "Enter move(example: a2-a3):" << std::endl;
+				TryMove();
 
 				break;
 			}
 		}
 		catch (std::exception& ex)
 		{
-			std::cout << "\b\b\b\b\b\b" << ex.what() << std::endl;
+			std::cout << "\n" << ex.what() << std::endl;
 		}
 	}
 

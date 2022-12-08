@@ -109,6 +109,7 @@ bool Board::IsCheckmate(bool whiteTurn)
 		{
 			currentPosition = Position{ i,j };
 			currentPiece = GetPiece(currentPosition);
+
 			if (currentPiece != nullptr && currentPiece->IsWhite() != whiteTurn)
 				for (int x = 1; x < 9; x++)
 				{
@@ -117,18 +118,12 @@ bool Board::IsCheckmate(bool whiteTurn)
 						BasePiece* savePiece = GetPiece(Position{ x,y });
 						if (savePiece != king && currentPiece->validMove(Position{ x,y }))
 						{
-							if (currentPiece->GetType() == "P") {
-								Pawn* pawn = dynamic_cast<Pawn*>(currentPiece);
-								pawn->setDoubleJump(true);
-							}
-
 							SetPiece(currentPosition, nullptr);
 							currentPiece->SetPosition(Position{ x,y });
 							SetPiece(Position{ x,y }, currentPiece);
 
 							if (!king->inDanger())
 								isCheckmate = false;
-							
 
 							SetPiece(currentPosition, currentPiece);
 							currentPiece->SetPosition(currentPosition);
