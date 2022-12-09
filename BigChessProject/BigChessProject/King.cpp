@@ -1,4 +1,3 @@
-//#include <iostream>
 #include "King.h"
 #include "Board.h"
 
