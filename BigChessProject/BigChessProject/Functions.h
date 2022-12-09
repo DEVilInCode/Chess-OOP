@@ -1,6 +1,6 @@
 #pragma once
+#include "BasePiece.h"
 
-void TryMove();
-bool UndoLastMove();
-void Save();
-void Load();
+bool ValidPosition(Position);
+std::string MoveToString(Position, Position);
+void EnterPosition(Position&);

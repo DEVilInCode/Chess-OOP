@@ -2,6 +2,7 @@
 #include "BasePiece.h"
 
 class Pawn: public BasePiece {
+	friend class Board;
 public:
 	Pawn(PieceColor color, Position position, bool doubleJump = true);
 	virtual ~Pawn();
