@@ -82,7 +82,7 @@ void Board::Draw()
 void Board::TryMove()
 {
 	Position from, to;
-
+	BasePiece* toPiece;
 	//get from position
 	EnterPosition(from);
 
@@ -93,6 +93,7 @@ void Board::TryMove()
 
 	//get to position
 	EnterPosition(to);
+	toPiece = GetPiece(to);
 	std::cout << std::endl;
 
 	//save move
@@ -101,15 +102,6 @@ void Board::TryMove()
 	//try move piece
 	if (MovePiece(from, to)) {
 
-		//for Pawns
-		if (GetPiece(to)->GetType() == "P")
-		{
-			Pawn* pawn = dynamic_cast<Pawn*>(GetPiece(to));
-			pawn->setDoubleJump(false);
-			if (to.y == 1 || to.y == 8)
-				pawn->transformation();
-		}
-
 		//check
 		if (GetKing(whiteTurn ? PieceColor::white : PieceColor::black)->inDanger())
 		{
@@ -117,6 +109,17 @@ void Board::TryMove()
 			UndoLastMove();
 		}
 
+		//for Pawns
+		if (GetPiece(to)->GetType() == "P")
+		{
+			Pawn* pawn = dynamic_cast<Pawn*>(GetPiece(to));
+			//pawn->setDoubleJump(false);
+			if (to.y == 1 || to.y == 8)
+				pawn->transformation();
+			if (toPiece == nullptr && abs(from.x - to.x) == 1 && abs(from.y - to.y) == 1)
+				pawn->GetColor() == PieceColor::white ? SetPiece({ to.x, to.y - 1 }, nullptr) : SetPiece({ to.x, to.y = 1 }, nullptr);
+		}
+		
 		//check mate
 		if (IsCheckmate(whiteTurn))
 		{
@@ -170,11 +173,11 @@ bool Board::UndoLastMove()
 
 				if (pieceColor2 == "Null" && abs(position[0].x - position[1].x) == 1 && abs(position[0].y - position[1].y) == 1)
 				{
-					pColor[0] == PieceColor::white ? SetPiece(Position{ position[1].x, position[1].y - 1 }, new Pawn(PieceColor::black, Position{ position[1].x, position[1].y - 1 }, false)):
-						SetPiece(Position{ position[1].x, position[1].y + 1 }, new Pawn(PieceColor::white, Position{ position[1].x, position[1].y + 1 }, false));
+					pColor[0] == PieceColor::white ? SetPiece(Position{ position[1].x, position[1].y - 1 }, new Pawn(PieceColor::black, Position{ position[1].x, position[1].y - 1 })):
+						SetPiece(Position{ position[1].x, position[1].y + 1 }, new Pawn(PieceColor::white, Position{ position[1].x, position[1].y + 1 }));
 				}
 
-				p[i] = new Pawn(pColor[i], position[i], dJump);
+				p[i] = new Pawn(pColor[i], position[i]);
 				break;
 			case 'Q':
 				p[i] = new Queen(pColor[i], position[i]);
@@ -319,11 +322,11 @@ void Board::Load()
 				switch (piece[0])
 				{
 				case 'P':
-					if (pieceColor == PieceColor::white && j == 2 || //Double jump available
-						pieceColor == PieceColor::black && j == 6)
-						dJump = true;
+					//if (pieceColor == PieceColor::white && j == 2 || //Double jump available
+					//	pieceColor == PieceColor::black && j == 7)
+					//	dJump = true;
 
-					SetPiece(current, new Pawn(pieceColor, current, dJump));
+					SetPiece(current, new Pawn(pieceColor, current));
 					break;
 				case 'Q':
 					SetPiece(current, new Queen(pieceColor, current));
@@ -405,7 +408,7 @@ bool Board::IsCheckmate(bool whiteTurn)
 					for (int y = 1; y < 9; y++)
 					{
 						BasePiece* savePiece = GetPiece(Position{ x,y });
-						if (savePiece != king && currentPiece->validMove(Position{ x,y }))
+						if (savePiece != dynamic_cast<BasePiece*>(king) && currentPiece->validMove(Position{ x,y }))
 						{
 							SetPiece(currentPosition, nullptr);
 							currentPiece->SetPosition(Position{ x,y });

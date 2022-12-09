@@ -5,12 +5,11 @@
 extern Board board;
 extern std::stack<std::string> lastMove;
 
-Pawn::Pawn(PieceColor color, Position position, bool doubleJump)
+Pawn::Pawn(PieceColor color, Position position)
 {
 	this->color = color;
 	this->type = "P";
 	this->position = position;
-	this->doubleJumpAvailable = doubleJump;
 }
 
 Pawn::~Pawn() {}
@@ -44,11 +43,6 @@ void Pawn::transformation()
     }
 }
 
-void Pawn::setDoubleJump(bool doubleJump)
-{
-    this->doubleJumpAvailable = doubleJump;
-}
-
 bool Pawn::validMove(Position moveTo)
 {
     Position delta = moveTo - this->position;
@@ -57,15 +51,13 @@ bool Pawn::validMove(Position moveTo)
 
     //move 1 cell
     if (moveTo.y == this->position.y + move1 && moveTo.x == this->position.x && board.GetPiece(moveTo) == nullptr) {
-       //this->doubleJumpAvailable = false;
         return true;
     }
 
     //move 2 cells
-    else if (this->doubleJumpAvailable == true && moveTo.y == this->position.y + move2 && moveTo.x == this->position.x
+    else if ((this->position.y == 7 || this->position.y == 2) && moveTo.y == this->position.y + move2 && moveTo.x == this->position.x
         && board.GetPiece(moveTo) == nullptr && board.GetPiece(Position{position.x, position.y + move1}) == nullptr)
     {
-        //this->doubleJumpAvailable = false;
         return true;
     }
 
@@ -92,11 +84,10 @@ bool Pawn::validMove(Position moveTo)
         PieceColor pieceCol1 = (col1 == "w" ? PieceColor::white : PieceColor::black);
         if (p1 == "P" && from.x - to.x == 0 && abs(from.y - to.y) == 2)
         {
-            if ((this->position.x == to.x + 1 || this->position.x == to.x - 1) &&
-                (moveTo.x == this->position.x + 1 || moveTo.x == this->position.x - 1) &&
+            if (((this->position.x == to.x + 1 || this->position.x == to.x - 1) && board.GetPiece(to)->GetType() == "P") &&
+                (moveTo.x == to.x) &&
                 (moveTo.y == this->position.y + move1))
             {
-                board.SetPiece(to, nullptr);
                 return true;
             }
         }

@@ -14,7 +14,7 @@ int main()
 					\nN - nobody wins(for perpetual check)\
 					\nS - save game\
 					\nL - load game\
-					\nE - exit\n";
+					\n~ - exit\n";
 	while (true) {
 		try {
 			rewind(stdin);
@@ -34,7 +34,7 @@ int main()
 					\nN - nobody wins(for perpetual check)\
 					\nS - save game\
 					\nL - load game\
-					\nE - exit\n";
+					\n~ - exit\n";
 				break;
 
 			case 'u':
@@ -53,8 +53,7 @@ int main()
 				board.Load();
 				break;
 
-			case 'e':
-			case 'E':
+			case '~':
 				exit(0);
 				break;
 
